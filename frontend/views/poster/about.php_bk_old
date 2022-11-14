@@ -1,0 +1,203 @@
+<?php
+use  yii\helpers\Url;
+use yii\widgets\LinkPager;
+use common\models\BuildingProjectInfo;
+use yii\widgets\ActiveForm;
+use frontend\widgets\AuthChoiceCustom;
+use yii\helpers\Html;
+use common\libraries\PseudoCrypt;
+use frontend\widgets\HeaderUser;
+?>
+ <?php echo HeaderUser::widget();?>
+<div class="body">
+	<div id="container">
+	<div class="tab-content" >
+		<div id="list-box" class="list-box"> 
+		<?php if($myself){?>
+					<?php
+							$form = ActiveForm::begin([
+									'options' =>[
+													'enctype' => 'multipart/form-data',
+													'class' => 'form-login',
+												],
+							]);
+							?>
+			<div>
+				<div class="panel-body">
+					<div class="box box-solid">
+						<div class="box-header with-border">
+						  <h3 class="box-title">Giới thiệu</h3>
+						</div><!-- /.box-header -->
+						<div class="box-body">
+						 <?php echo $form->field($user, 'about',['template' => '{input}'])->textArea(['autocomplete' => 'off', 'rows' => '6', 'cols'=>'100%', 'placeholder'=> 'Giới thiệu'])->label(false) ?>
+						</div><!-- /.box-body -->
+					  </div>
+						<div class="box box-solid">
+						<div class="box-header with-border">
+						   <h3 class="box-title">Thông tin</h3>
+						</div><!-- /.box-header -->
+						<div class="box-body">
+						   <table class="table table-bordered">
+								<tbody>
+									<tr>
+										<td>Họ và Tên</td>
+										<td><?php echo $form->field($user, 'name',['template' => '{input}{error}'])->textInput(['autocomplete' => 'off', 'placeholder'=> 'Tên'])->label(false) ?>
+											</td>
+									</tr>
+									<tr>
+										<td>Ngày sinh</td>
+										<td>
+										<?php echo $form->field($user, 'birthday',['template' => '{input}'])->widget(yii\jui\DatePicker::classname(), [
+															'options' => ['class' => 'form-control'],
+															 'language' => 'vi',
+																'dateFormat' => 'dd/MM/yyyy',
+																
+													]
+											)->label(false) ?>
+										</td>
+									</tr>
+									<tr>
+										<td>Giới tính</td>
+										
+										<td>
+										<?php
+											
+												echo $form->field($user, 'sex',['template' => '{input}'])->radioList([ 0 =>'Nữ', 1 => 'Nam'])->label(false) ?>
+											</td>
+									</tr>
+									<tr>
+										<td>Điện thoại</td>
+										<td><?php echo $form->field($user, 'phone',['template' => '{input}{error}'])->textInput(['autocomplete' => 'off', 'placeholder'=> 'Số điện thoại'])->label(false) ?>
+											</td>
+									</tr>
+									<tr>
+										<td>Email</td>
+										<td><?php echo $form->field($user, 'email',['template' => '{input}'])->textInput(['autocomplete' => 'off', 'placeholder'=> 'Địa chỉ Email'])->label(false) ?></td>
+									</tr>
+									<tr>
+										<td>Địa chỉ</td>
+										<td>
+											<div class="col-sm-12 address nopadding">
+													<div class="col-sm-12 nopadding">	
+															<div class="province">
+																<?php echo $form->field($user, 'province_id',['template' => '{input}'])
+																->dropDownList(
+																	$provinces,           // Flat array ('id'=>'label')
+																	[
+																		'prompt'=>'* Tỉnh/Thành phố',
+																		
+																	]    // options
+																)->label(false) ?>
+															</div>
+															<div class="district">
+																<?php echo $form->field($user, 'district_id',['template' => '{input}'])
+															->dropDownList(
+																$districts,           // Flat array ('id'=>'label')
+																[
+																	'prompt'=>'* Quận/Huyện',
+																	
+																]    // options
+															)->label(false) ?>	
+															</div>		
+															<div class="street">
+													<?php echo $form->field($user, 'street',['template' => '{input}'])
+														->textInput(['autocomplete' => 'off', 'placeholder'=> 'Số nhà, Thôn/Xóm, Ấp/Xã, Phường, Đường'])->label(false) ?>
+													</div>	
+													</div>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										</td>	
+										<td>
+											<?= Html::submitButton('Cập nhập', ['name' => 'submit', 'class' => 'btn btn-sm btn-danger','style'=>'width:100%']) ?>
+										</td>
+									</tr>	
+										 <?php ActiveForm::end(); ?>
+								</tbody>
+							</table>		
+						</div><!-- /.box-body -->
+					  </div>
+				</div>
+		</div>
+		<?php }else{ ?>
+			<div>
+				<div class="panel-body">
+					<div class="box box-solid">
+						<div class="box-header with-border">
+						  <h3 class="box-title">Giới thiệu</h3>
+						</div><!-- /.box-header -->
+						<div class="box-body">
+							<?php echo $poster->about;?>
+						</div><!-- /.box-body -->
+					  </div>
+						<div class="box box-solid">
+						<div class="box-header with-border">
+						   <h3 class="box-title">Thông tin</h3>
+						</div><!-- /.box-header -->
+						<div class="box-body">
+						
+						   <table class="table table-bordered">
+								<tbody>
+									<tr>
+										<td>Họ và Tên</td>
+										<td>
+											<?php echo $poster->name;?>
+										</td>
+									</tr>
+									<tr>
+										<td>Ngày sinh</td>
+										<td>
+											<?php echo strtotime($poster->birthday)? date('d/m/Y',strtotime($poster->birthday)):'';?>
+										</td>
+									</tr>
+									<tr>
+										<td>Giới tính</td>
+										<td>
+											<?php echo $poster->sex? 'Nam': 'Nữ';?>
+										</td>
+											
+									</tr>
+									<tr>
+										<td>Điện thoại</td>
+										<td><?php echo $poster->phone;?>
+										</td>
+									</tr>
+									<tr>
+										<td>Email</td>
+										<td>
+											<?php echo $poster->email;?>
+										</td>
+									</tr>
+									<tr>
+										<td>Địa chỉ</td>
+										<td>
+											<div class="col-sm-12 address nopadding">
+													<div class="col-sm-12 nopadding">	
+															<div class="province">
+																<?php echo isset($poster->province)?$poster->province->name:'';?>
+															</div>
+															<div class="district">
+																<?php echo isset($poster->district)?$poster->district->name:'';?>
+															</div>		
+															<div class="street">
+																<?php echo $poster->street?>
+															</div>	
+													</div>
+											</div>
+										</td>
+									</tr>
+								
+								</tbody>
+							</table>		
+						</div><!-- /.box-body -->
+					  </div>
+				</div>
+		</div>
+		<?php }?>
+  </div>
+  </div>
+</div>
+</div>
+<?php echo $this->registerJsFile('@web/js/user.js');?>

@@ -1,0 +1,131 @@
+
+.eland-icon::before {
+    background-image: url(img/svg-icons-eland.svg);
+}
+.eland-search::before{
+    background-position: -119px -3px;
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+}
+.eland-direction::before {
+    background-position: -119px -147px;
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 8px;
+    top: 8px;  
+}
+.eland-area::before {
+    background-position: -119px -111px;
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+}
+.eland-condition::before {
+    background-position: -119px -182px;
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+}
+
+
+.eland-address::before {
+        background-position: -956px -3px;
+        content: '';
+        display: inline-block;
+        background-repeat: no-repeat;
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: -15px;
+        top: 1px;   
+}
+.eland-bathroom::before {
+     background-position: -958px -36px;
+     content: '';
+     display: inline-block;
+     background-repeat: no-repeat;
+     width: 15px;
+        height: 15px;
+        position: absolute;
+        left: -17px;
+        top: 0;
+}
+.eland-bedroom::before {
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: -958px -72px;
+    width: 15px;
+        height: 15px;
+        position: absolute;
+        left: -17px;
+        top: 0;
+    
+}
+.eland-acreage::before {
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: -958px -109px;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    left: -17px;
+    top: 0;
+}
+
+.eland-scale::before {
+    left: -18px;
+    background-position: -956px -179px;
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 1px;
+}
+.eland-investor::before {
+    left: -18px;
+    background-position: -956px -211px;
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 1px;
+}
+.eland-price::before {
+     background-position: -630px -209px;
+     content: '';
+     display: inline-block;
+     background-repeat: no-repeat;
+    position: absolute;
+    left: -30px;
+    top: -4px;
+    width: 25px;
+    height: 25px;
+}
+
+

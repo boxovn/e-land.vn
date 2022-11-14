@@ -1,0 +1,94 @@
+/* 
+    Created on : 7.4.2015, 20:43:12
+    Author     : tvaliasek
+*/
+
+@import "compass";
+
+/*colors*/
+$passive-color: #b1b1b1;
+$active-color: #dc642d;
+
+/*width of whole menu*/
+$max-width: 80px;
+
+/*MENU WRAPPER*/
+div#ctsElsWrapper{
+    position: fixed;
+    top: 20vh;
+    right: 2em;
+    display: none;
+    z-index: 1500;
+    vertical-align: top;
+    width: $max-width;
+    max-width: $max-width;
+    height: auto;
+
+    /*DIRECTION ARROWS*/
+    & > .cts-arrow{
+        display: block;
+        position: relative;
+        width: $max-width;
+        height: 20px;
+
+        polyline.cts-svg-arrow{
+            fill: none;
+            stroke: $passive-color;
+            stroke-width: 3;
+            @include transition(stroke 300ms ease-in 0s);
+        }
+
+        &.cts-active polyline.cts-svg-arrow{
+            stroke: $active-color;
+            @include transition(stroke 300ms ease-in 0s);
+        }
+    }
+
+    & > p.cts-text{
+        text-align: center;
+        margin: 1.5em 0em;
+        font-weight: normal;
+        color: $passive-color;
+        display: block;
+        width: $max-width;
+        max-width: $max-width;
+    }
+
+    /*DOT LINKS*/
+    & > #ctsDotsWrapper{
+        display: block;
+        position: relative;
+        width: $max-width;
+        height: auto;
+        text-align: center;
+
+        & > a.cts-dot{
+            display: block;
+            position: relative;
+            border: none;
+            outline: none;
+            margin: 1em auto;
+
+            circle{
+                fill: $passive-color;
+                @include transition(fill 250ms ease-in-out 0s);
+            }
+
+            &.cts-active circle{
+                fill: $active-color;
+                @include transition(fill 250ms ease-in-out 0s);
+            }
+        }
+
+        & > a.cts-dot:first-child{
+            margin-top: 1.7em;
+        }
+    }
+}
+
+/*MEDIA QUERIES - SHOW MENU ONLY ON BIGGER DEVICES*/
+@media (min-width: 768px) {
+    div#ctsElsWrapper {
+        display: inline-block;
+    }
+}

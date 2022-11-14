@@ -1,0 +1,67 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+
+/**
+ * This is the model class for table "notes".
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $content
+ * @property string $created
+ */
+class House extends \yii\db\ActiveRecord
+{
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'houses';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['employee_id', 'content','description','status'], 'required'],
+            [['content'], 'string'],
+            [['created','status'], 'safe'],
+            [['status', 'exclusive', 'employee_id'], 'integer'],
+            [['contract_date','contract_end_date'], 'default', 'value' => null],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'description' => 'Nguồn nhà',
+            'created' => 'Ngày tạo',
+            'status' => 'Trình trạng',
+            'exclusive' => 'Hợp đồng độc quyền',
+            'employee_id' => 'Nhân viên',
+            'contract_date' => 'Ngày ký hợp đồng',
+            'contract_end_date' => 'Thời hạn có hiệu lực',
+        ];
+    }
+	public function getNoteInfo(){
+    
+    return $this->hasOne(NoteInfo::className() ,['house_id' => 'id']);
+    }
+	public function getEmployee(){
+    
+    return $this->hasOne(Employee::className() ,['id' => 'employee_id']);
+    }
+	  public function getImages()
+    {
+        return $this->hasMany(ArticleImage::className(), ['house_id' => 'id']);
+    }
+}

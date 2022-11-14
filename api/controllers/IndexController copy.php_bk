@@ -1,0 +1,794 @@
+<?php
+namespace api\controllers;
+use yii;
+use common\models\ArticleType;
+use common\models\User;
+use common\models\Article;
+use common\models\ArticleImage;
+use common\models\ ArticleDetail;
+
+use yii\helpers\FileHelper;
+use common\models\District;
+use common\models\Province;
+use common\models\Street;
+use yii\imagine\Image;
+class IndexController extends CommonController {
+    /**
+     * 
+     */
+	 public function actionAddress() {
+		 $array =array();
+		 $articles = Article::find()->all();
+		 foreach($articles as $value){
+			$array = explode(',',$value->address);
+			$array =array_map('trim',$array);
+			$district = District::find()->andWhere(['name' => $array])->one();
+			$province = Province::find()->andWhere(['name' => $array])->one();
+			$street = Street::find()->andWhere(['name' => $array])->one();
+			if($district ){
+				$value->district_id =  $district->district_id;
+			}
+			if($province ){
+				$value->province_id =  $province->province_id;
+			}
+			if($street ){
+				$value->street_id =  $street->street_id;
+			}
+			$value->save(false);
+		 }
+		 return true;
+	}
+	public function actionIndex() {
+			$message = "";
+			$objects = array();
+			$error = 0;
+			$url = '';
+		if (Yii::$app->request->isGet) {
+				$url = \Yii::$app->request->get('url');
+			if(!$url){
+            	  $url = 'https://batdongsan.com.vn/nha-dat-ban';
+            }
+						$pageTotal = \Yii::$app->request->get('page',1);
+						$pages = $this->getUrlPage($url,$pageTotal); 
+						
+						foreach ($pages as $key => $page) {
+							if(date('Y-m-d',strtotime($page['post_date']))==date('Y-m-d',strtotime("-1 days"))){
+							
+							$code = date("YmdHis") . gettimeofday()["usec"];
+							$title = str_replace(['_',' - '],' ', $page['title']?$page['title']:'');
+							$slug = '';//strtolower($this->stripSlug($title));
+							$price_text = $page['price_text']? $page['price_text']:'';
+							$price_number = $page['price_number']? $page['price_number']:0;
+							$page_name = $page['page_name']? $page['page_name']:'';
+							$page_url = $page['page_url']? $page['page_url']:'';
+							$split_id = explode("-", $page_url);
+							$product_city_dist = $page['product_city_dist']? explode(",", $page['product_city_dist']):'';
+							$page_id =$split_id[count($split_id)-1];
+							$address = isset($page['address']) ? $page['address'] : '';
+							$area = $page['area']? $page['area']:0;
+							$area_text = $page['area_text']? $page['area_text']:'';
+							$description = $page['description']? $page['description']:'';
+							$small_image = $page['small_image']? $page['small_image']:'';
+							$district_name =	isset($product_city_dist[0])?$product_city_dist[0]:'';
+							$province_name =	isset($product_city_dist[1])?$product_city_dist[1]:'';
+							$content = $page['content']? $page['content']:'';
+							$hdLat =  $page['hdLat']? $page['hdLat']:'';
+							$hdLong =  $page['hdLong']? $page['hdLong']:''; 
+							$project_link = $page['project_link'] ? $page['project_link'] : '';
+							$split = explode("-", $project_link);
+							$project_id = $split[count($split)-1]; 
+							$project_name =  $page['project_name'] ? $page['project_name'] : '';
+							$investor =  $page['investor'] ? $page['investor'] : '';
+							$post_date =  $page['post_date'] ? $page['post_date'] : '';
+							if (isset($page['type_name'])) {
+								$type_name = isset($page['type_name']) ? $page['type_name'] : '';
+								$type_slug = strtolower($this->stripSlug($type_name));
+								$articleType = ArticleType::findOne(['slug' => $type_slug]);
+								if ($articleType) {
+									$type_id = $articleType->id;
+								} else {
+									$articleType = new ArticleType();
+									$articleType->title = $type_name;
+									$articleType->slug = $type_slug;
+									if ($articleType->save()) {
+										$type_id = $articleType->getPrimaryKey();
+									}
+								}
+							}
+	                    $user_name = isset($page['user_name']) ? $page['user_name'] : '';
+	                    $user_email = isset($page['user_email']) ? $page['user_email'] : '';
+	                    $user_phone = isset($page['user_phone']) ? $page['user_phone'] : '';
+	                    $user_address = isset($page['user_address']) ? $page['user_address'] : '';
+	                    $user_image = isset($page['user_image']) ? $page['user_image']: '';
+						$image_name='';
+						$maxid=	User::find()->max('id');
+						$user = User::findOne(['email' => $user_email, 'phone' => $user_phone]);
+	                    if (!$user) {
+							if($user_image){
+								$ext = pathinfo($user_image , PATHINFO_EXTENSION);
+								$image_name = date('YmdHis') . gettimeofday()['usec'] . '.' . $ext;
+								
+							}
+	                        $user = new User();
+	                        $user->name = trim($user_name);
+	                        $user->email = trim($user_email);
+	                        $user->phone = trim($user_phone);
+	                        $user->address = trim($user_address);
+	                        $user->image_link = trim($user_image);
+							$user->image = trim($image_name);
+	                        $user->page_name = trim($page_name);
+	                        $user->page_url = trim($page_url);
+						
+	                        $user->save(false);
+							$user_id = $user->getPrimaryKey();
+							if($user_image){
+								$path= Yii::$app->params['PathChannels'] . '/avatar/';
+								FileHelper::createDirectory($path, $mode = 0777, $recursive = true);
+								if (@getimagesize($user_image)) {
+										copy( $user_image,  $path . $image_name);
+										//$this->getCopy( $user_image,  $path . $image_name);
+								}
+							}
+						}else{
+	                    	$user_id= $user->id;
+	                    }
+					
+	                    $article = Article::findOne(['page_id' => $page_id]);
+						$province = Province::find()->andWhere(['name' => trim($province_name)])->one();
+						if(!$province){
+							 $province = new Province();
+						}
+						
+						$district = District::find()->andWhere(['name' => trim($district_name)])->orWhere(['like', "CONCAT(type, ' ',name)", trim($district_name)])->one();
+				
+						if(!$district){
+							 $district = new District();
+						}
+						
+						/*if($small_image){
+								$ext = pathinfo($small_image , PATHINFO_EXTENSION);
+								$image_name_small = date('YmdHis') . gettimeofday()['usec'] . '.' . $ext;
+								$path= Yii::$app->params['PathImageArticle']. '210x118/';
+								FileHelper::createDirectory($path, $mode = 0775, $recursive = true);
+								if($small_image!="/Images/nophoto.jpg"){
+									copy( $small_image,  $path . $image_name_small);
+								}
+							}
+							*/
+	                    if (!$article) {
+	                        $article = new Article();
+	                        $article->code= $code;
+	                        $article->title= trim($title);
+	                        $article->slug= trim($slug);
+	                        $article->user_id= $user_id;
+	                        $article->type_id= $type_id;
+	                        $article->address= trim($address);
+	                        $article->area= trim($area);
+	                        $article->area_text= trim($area_text);
+	                        $article->price_text= trim($price_text);
+	                        $article->price_number= trim($price_number);
+	                        $article->description= trim($description);
+							$article->content= trim($content);
+	                        $article->hdLat= trim($hdLat);
+	                        $article->hdLong= trim($hdLong);
+	                        $article->page_name= trim($page_name);
+	                        $article->page_url= trim($page_url);
+	                        $article->project_id= $project_id;
+	                        $article->project_name= trim($project_name);
+	                        $article->project_link= trim($project_link);
+	                        $article->page_id= $page_id;
+	                        $article->investor= $investor;
+	                        $article->post_date= $post_date;
+	                        $article->page= $pageTotal;
+							$article->province_id = isset($province->province_id)?$province->province_id:0;
+							$article->district_id = isset($district->district_id)?$district->district_id:0;
+                        if($article->save(false)){
+							foreach ($page['images'] as $key => $value) {
+	                        		$image_article = new ArticleImage();
+	                        		$image_article->article_id=  $article->getPrimaryKey();
+	                        		$image_article->image_link_small= $value['thumb'];
+	                        		$image_article->image_link_large= $value['image'];
+									
+										
+										$ext = pathinfo($value['thumb'] , PATHINFO_EXTENSION);
+										$image_name = date('YmdHis') . gettimeofday()['usec'] . '.' . $ext;
+										$pathLarge = Yii::$app->params['PathChannels'] . 'article/745x510/';
+										$path210X118 = Yii::$app->params['PathChannels']  . 'article/210x118/';
+										$path200X200 = Yii::$app->params['PathChannels']  . 'article/200x200/';
+										FileHelper::createDirectory($pathLarge, $mode = 0777, $recursive = true);
+										FileHelper::createDirectory($path210X118, $mode = 0777, $recursive = true);
+										FileHelper::createDirectory($path200X200, $mode = 0777, $recursive = true);
+										if($value['image']!="/Images/nophoto.jpg"){
+											if (@getimagesize($value['image'])) {
+												//if($this->getCopy($value['image'],$pathLarge . $image_name)){
+												
+												if(copy($value['image'],  $pathLarge . $image_name)){
+													if (@getimagesize($pathLarge . $image_name)) {
+													Image::thumbnail($pathLarge . $image_name, 210, 118)->save($path210X118 . $image_name, ['quality' => 100]);
+													Image::thumbnail($pathLarge . $image_name, 200, 200)->save($path200X200 . $image_name, ['quality' => 100]);
+													}
+												}
+											}
+										}
+										$image_article->image = $image_name; 
+										if($image_article->save(false)){
+										}
+                        	}
+						}
+						$article_detail = new ArticleDetail();
+							$article_detail->article_id = $article->getPrimaryKey();
+							$article_detail->frontend = $page['article_detail']['frontend'];
+							$article_detail->gateway = 	$page['article_detail']['gateway'];
+							$article_detail->balcony = 	$page['article_detail']['balcony'] ;
+							$article_detail->floor = 	$page['article_detail']['floor'];
+							$article_detail->room = 	$page['article_detail']['room'] ;
+							$article_detail->toilet = 	$page['article_detail']['toilet'];
+							$article_detail->interior = $page['article_detail']['interior'];
+							$article_detail->save(false);
+                    }
+                     $objects[]=[
+        				'code'=> $code,
+                        'title'=> $title,
+                        'slug' => $slug,
+                        'user_id' => $user_id,
+                       	'type_id' => $type_id,
+                        'address'=> $address,
+                       	'area' => $area,
+                        'area_text' => $area_text,
+                        'price_text' => $price_text,
+                        'price_number' => $price_number,
+                        'description' => $description,
+						'image' => $small_image,
+                        'content' => $content,
+                        'hdLat' => $hdLat,
+                        'hdLong' => $hdLong,
+                       	'page_name' => $page_name,
+                      	'page_url' => $page_url,
+                       	'project_id' => $project_id,
+                        'project_name' => $project_name,
+                      	'project_link' => $project_link,
+                       	'page_id' => $page_id,
+                      	'investor' => $investor,
+                      	'post_date' => $post_date,
+                      	'page' => $pageTotal,
+                      ];
+
+                
+				}
+						}
+        }
+
+     
+        $this->sendResponse($error, $message, $objects);
+    }
+	public function getCopy($url='', $path=''){
+		$fp = fopen ($path, 'w+');
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 50); //timeout
+		curl_setopt($ch, CURLOPT_FILE, $fp); 
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_exec($ch);
+		curl_close($ch);
+		fclose($fp);
+		return true;
+	}
+    public function getUrlPage($url, $page=1){
+		if($page==1){
+			return 	$this->getUrl($url);
+		}else{
+			$url = $url . '/p'. $page;
+		return	$this->getUrl($url);
+		}
+}
+ public function getUrl($url){
+	
+	$links = [];
+	$apar=[];
+	//$description[];
+     $doc = $this->getDocument($url);
+     $xpath = new \DOMXPath($doc);
+	//$xpath = $this->getXPath($url);
+	$hrefs = $xpath->query('//div[@class="p-title"]/h3/a');
+	foreach($hrefs as $key => $li_node){
+	//	$links[]= 'https://batdongsan.com.vn' . $li_node->getAttribute("href");
+            	$links[]= Yii::$app->params['urlPage'] . $li_node->getAttribute("href");
+	}
+	
+	$smallImages= $xpath->query('//a[@class="product-avatar"]/img');
+	foreach($smallImages  as $key => $value){
+			$small_image[]=  $value->getAttribute('src');	
+	}
+	
+	$descriptions = $xpath->query('//div[@class="p-main-text"]');
+	foreach($descriptions  as $key => $value){
+			$description[]=  $value->nodeValue;	
+	}
+	$product_city_dists = $xpath->query('//strong[@class="product-city-dist"]');
+	foreach($product_city_dists  as $key => $value){
+			$product_city_dist[]=  $value->nodeValue;	
+	}
+	
+    foreach($links as $key => $link){
+			
+        $apar[]= $this->apartment($link, $description[$key],$small_image[$key],$product_city_dist[$key]);
+	}
+ 
+	return  $apar;
+}
+ public function getContent($url){
+		$agent= 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.0.3705; .NET CLR 1.1.4322)';
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_VERBOSE, true);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+                curl_setopt($ch, CURLOPT_URL,$url);
+                $result=curl_exec($ch);
+                return $result;
+}
+
+ public function getDocument($url){
+	$document = $this->getContent($url);
+	$doc = new \DOMDocument();
+	libxml_use_internal_errors(true);
+	$doc->loadHTML($document);
+	return $doc;
+}
+
+ /*public function getXPath($url){
+	$doc = $this->getDocument($url);
+	$xpath = new \DOMXPath($doc);
+	return $xpath;
+}
+*/
+public function apartment($url,$description,$small_image,$product_city_dist){
+	
+	$project= array();
+     //   $url='https://batdongsan.com.vn/ban-can-ho-chung-cu-duong-nguyen-duc-canh-phuong-tuong-mai-prj-hud3-nguyen-duc-canh/90-4m2-3phong-ngu-60-h-truc-tiep-cdt-lh-0966-593-130-pr18787708';
+	//$xpath = $this->getXPath($url);
+    $doc = $this->getDocument($url);
+    $xpath = new \DOMXPath($doc);
+	$project['page_url']= $url;
+	$parse = parse_url($url);
+	$project['page_name'] = $parse['host'];
+	
+	
+	/*$title = $xpath->query('//div[@class="pm-title"]/h1');
+	if(!$title ->item(0)){
+		$project['title'] = '';
+	}else{
+		$project['title'] = $title ->item(0)->nodeValue;
+	}*/
+	$title = $xpath->query('//title');
+	if(!$title ->item(0)){
+		$project['title'] = '';
+	}else{
+		$project['title'] = $title ->item(0)->nodeValue;
+	}
+//        $price = $xpath->query('//span[@class="gia-title mar-right-15"]');
+//	if(!$price ->item(0)){
+//		$project['price']= '';
+//	}else{
+//		$project['price']= (float) filter_var($price->item(0)->nodeValue, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION );
+//	}
+	$price_number = $xpath->query('//span[@class="gia-title mar-right-15"]/strong');
+	if(!$price_number->item(0)){
+		$project['price_number']= 0;
+	}else{
+             $project['price_number']=  $this->wordsToNumber(trim(preg_replace('/[ \t]+/', ' ', preg_replace('/[\r\n]+/', "\n", $price_number->item(0)->nodeValue)), " \t\n\r"));	
+	}
+        
+        
+        $price_text = $xpath->query('//span[@class="gia-title mar-right-15"]/strong');
+	if(!$price_text->item(0)){
+		$project['price_text']= '';
+	}else{
+             $project['price_text']= trim(preg_replace('/[ \t]+/', ' ', preg_replace('/[\r\n]+/', "\n", $price_text->item(0)->nodeValue)), " \t\n\r");
+	}
+        
+      //  $project['price_number'] = $this->wordsToNumber(trim(preg_replace('/[ \t]+/', ' ', preg_replace('/[\r\n]+/', "\n", $xpath->query('//span[@class="gia-title mar-right-15"]/strong')->item(0)->nodeValue)), " \t\n\r"));
+	//$project['price_text'] = trim(preg_replace('/[ \t]+/', ' ', preg_replace('/[\r\n]+/', "\n", $xpath->query('//span[@class="gia-title mar-right-15"]/strong')->item(0)->nodeValue)), " \t\n\r");
+	//$project['price-text']= (string) preg_replace('/[0-9\.]+/', '', $xpath->query('//span[@class="gia-title mar-right-15"]/strong')->item(0)->nodeValue);
+	
+	$area = $xpath->query('//span[@class="gia-title"]');
+	if(!$area->item(0)){
+		$project['area']= 0;
+	}else{
+             $project['area']= (float) filter_var( $area->item(0)->nodeValue, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION );
+	}
+        
+        $area_text = $xpath->query('//span[@class="gia-title"]');
+	if(!$area_text->item(0)){
+		$project['area_text']= '';
+	}else{
+            $area_text= explode(':', $area_text->item(0)->nodeValue); 
+             $project['area_text']= $area_text[1]?$area_text[1]:'';
+	}
+    $content= $xpath->query('//div[@class="pm-desc"]');
+	if(!$content->item(0)){
+		$project['content']  = '';
+	}else{
+
+		$project['content'] = $doc->saveHTML($content->item(0));;
+	}
+
+
+        /*$description = $xpath->query('//div[@class="pm-desc"]');
+        if(!$description->item(0)){
+		$project['description']  = '';
+	}else{
+		$project['description']= $description->item(0)->nodeValue;	
+	}*/
+	$project['description']= $description;	
+	$project['small_image']= $small_image;	
+	$project['product_city_dist'] = $product_city_dist;
+	
+	$hdLat = $xpath->query('//input[@id="hdLat"]');
+        if(!$hdLat->item(0)){
+		$project['hdLat'] = '';
+	}else{
+		$project['hdLat'] = $hdLat ->item(0)->getAttribute('value');
+	}
+        $hdLong = $xpath->query('//input[@id="hdLong"]');
+	if(!$hdLong ->item(0)){
+		$project['hdLong'] = '';
+	}else{
+		$project['hdLong'] = $hdLong ->item(0)->getAttribute('value');
+	}
+	$sliderImage = $xpath->query('//ul[@id="thumbs"]/li/img');
+	$project['images']= array();
+	// Find all inner li tags
+	foreach($sliderImage as $key => $node){
+		$project['images'][] =[ 
+			'image' => str_replace("200x200","745x510",  $node->getAttribute("src")),
+			'thumb' =>  $node->getAttribute("src"),
+		];
+	}
+	$user_email = $xpath->query('//div[@id="contactEmail"]/div[@class="right"]/script');
+	
+	if(!$user_email->item(0)){
+		$project['user_email']='';
+	}else{
+       
+     
+		$user_email = $user_email->item(0)->nodeValue;
+
+		$user_email = isset($user_email)?$user_email :'';
+		$user_email = str_replace('<!--', '', $user_email);
+		$user_email = str_replace('//-->', '', $user_email);
+		$user_email = str_replace('-', '', $user_email);
+		$user_email = str_replace('document.write("', '', $user_email);
+		$user_email = str_replace('");', '', $user_email);
+		$user_email = trim($user_email, " \t\n\r");
+		$user_email = html_entity_decode( $user_email);
+		$project['user_email']= strip_tags($user_email);
+	}
+	$user_image= $xpath->query('//div[@class="customer-avatar"]/img');
+	if(!$user_image->item(0)){
+		$project['user_image']= '';
+	}else{
+		$project['user_image']= $user_image->item(0)->getAttribute("src");
+	}
+	$user_name = $xpath->query('//div[@id="LeftMainContent__productDetail_contactName"]/div[@class="right"]');
+	if(!$user_name->item(0)){
+		$project['user_name']= '';
+	}else{
+		$project['user_name']= $user_name->item(0)->nodeValue;
+	 
+	}
+	$user_mobile= $xpath->query('//div[@id="LeftMainContent__productDetail_contactMobile"]/div[@class="right"]');
+	if(!$user_mobile->item(0)){
+		$project['user_phone']= '';
+	}else{
+		$project['user_phone']= $user_mobile->item(0)->nodeValue;
+	}
+	$user_address= $xpath->query('//div[@id="LeftMainContent__productDetail_contactAddress"]/div[@class="right"]');
+	if(!$user_address->item(0)){
+		$project['user_address']= '';
+	}else{
+		$project['user_address']= $user_address->item(0)->nodeValue;
+	}
+        
+        $type_name= $xpath->query('//div[@class="div-hold"]/div[@class="table-detail"]/div[@class="row"]/div[@class="right"]');
+	if(!$type_name->item(0)){
+		$project['type_name']= '';
+	}else{
+		$project['type_name']= $type_name->item(0)->nodeValue;
+	}
+        $address= $xpath->query('//div[@class="div-hold"]/div[@class="table-detail"]/div[@class="row"]/div[@class="right"]');
+	if(!$address->item(1)){
+		$project['address']= '';
+	}else{
+		$project['address']= $address->item(1)->nodeValue;
+	}
+	$project_detail= $xpath->query('//div[@id="LeftMainContent__productDetail_frontEnd"]/div[@class="right"]');
+
+	if(!$project_detail->item(0)){
+		$project['article_detail']['frontend'] = '';
+	}else{
+		$project['article_detail']['frontend'] = $project_detail->item(0)->nodeValue;
+	}
+	$project_detail= $xpath->query('//div[@id="LeftMainContent__productDetail_wardin"]/div[@class="right"]');
+
+	if(!$project_detail->item(0)){
+		$project['article_detail']['gateway'] = '';
+	}else{
+		$project['article_detail']['gateway'] = $project_detail->item(0)->nodeValue;
+	}
+	$project_detail= $xpath->query('//div[@id="LeftMainContent__productDetail_balcony"]/div[@class="right"]');
+
+	if(!$project_detail->item(0)){
+		$project['article_detail']['balcony'] = '';
+	}else{
+		$project['article_detail']['balcony'] = $project_detail->item(0)->nodeValue;
+	}
+	$project_detail= $xpath->query('//div[@id="LeftMainContent__productDetail_floor"]/div[@class="right"]');
+
+	if(!$project_detail->item(0)){
+		$project['article_detail']['floor'] = '';
+	}else{
+		$project['article_detail']['floor'] = $project_detail->item(0)->nodeValue;
+	}
+	$project_detail= $xpath->query('//div[@id="LeftMainContent__productDetail_roomNumber"]/div[@class="right"]');
+
+	if(!$project_detail->item(0)){
+		$project['article_detail']['room'] = '';
+	}else{
+		$project['article_detail']['room'] = $project_detail->item(0)->nodeValue;
+	}
+	$project_detail= $xpath->query('//div[@id="LeftMainContent__productDetail_toilet"]/div[@class="right"]');
+
+	if(!$project_detail->item(0)){
+		$project['article_detail']['toilet'] = '';
+	}else{
+		$project['article_detail']['toilet'] = $project_detail->item(0)->nodeValue;
+	}
+	$project_detail= $xpath->query('//div[@id="LeftMainContent__productDetail_interior"]/div[@class="right"]');
+
+	if(!$project_detail->item(0)){
+		$project['article_detail']['interior'] = '';
+	}else{
+		$project['article_detail']['interior']  = $project_detail->item(0)->nodeValue;
+	}
+	//$project['address']= $xpath->query('//div[@class="div-hold"]/div[@class="table-detail"]/div[@class="row"]/div[@class="right"]')->item(1)->nodeValue;
+	$post_date= $xpath->query('//div[@class="prd-more-info"]/div');
+        if(!$post_date->item(2)){
+		$project['post_date'] = date('Y-m-d H:i:s');
+	}else{
+            $date= explode(':', $post_date->item(2)->nodeValue);
+            $project['post_date']=date('Y-m-d',strtotime($date[1]));
+	}
+        
+        
+	
+        $project_name= $xpath->query('//div[@id="project"]/div[@class="table-detail"]/div[@class="row"]/div[@class="right"]');
+	if(!$project_name->item(0)){
+		$project['project_name'] = '';
+	}else{
+		$project['project_name'] = $project_name->item(0)->nodeValue;
+	}
+       $investor= $xpath->query('//div[@id="LeftMainContent__productDetail_projectOwner"]/div[@class="right"]');
+        if(!$investor->item(0)){
+		$project['investor'] = '';
+	}else{
+		$project['investor'] = $investor->item(0)->nodeValue;
+	}
+        
+	$project_detail= $xpath->query('//div[@id="LeftMainContent__productDetail_projectSize"]/div[@class="right"]');
+	if(!$project_detail->item(0)){
+		$project['project_detail'] = '';
+	}else{
+		$project['project_detail'] = $project_detail->item(0)->nodeValue;
+	}
+	$project_link =  $xpath->query('//div[@class="inproject"]/a[@id="LeftMainContent__productDetail_linkProject"]');
+	if(!$project_link->item(0)){
+		$project['project_link'] = '';
+	}else{
+		$project['project_link'] = Yii::$app->params['urlPage'] . $project_link->item(0)->getAttribute('href');
+	}
+	return $project;
+}
+
+
+//  public function stripVNUrl($str='') {
+//    $str = preg_replace("/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", 'a', $str);
+//    $str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
+//    $str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
+//    $str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
+//    $str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
+//    $str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
+//    $str = preg_replace("/(đ)/", 'd', $str);
+//	$str = preg_replace("/(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", 'a', $str);
+//    $str = preg_replace("/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/", 'e', $str);
+//    $str = preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/", 'i', $str);
+//    $str = preg_replace("/(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", 'o', $str);
+//    $str = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'u', $str);
+//    $str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'y', $str);
+//	$str = preg_replace("/(Đ|D)/", 'd', $str);
+//    $str = preg_replace("/(A)/", 'a', $str);
+//	$str = preg_replace("/(B)/", 'b', $str);
+//	$str = preg_replace("/(C)/", 'c', $str);
+//	$str = preg_replace("/(D)/", 'd', $str);
+//	$str = preg_replace("/(E)/", 'e', $str);
+//	$str = preg_replace("/(G)/", 'g', $str);
+//	$str = preg_replace("/(H)/", 'h', $str);
+//	$str = preg_replace("/(I)/", 'i', $str);
+//	$str = preg_replace("/(K)/", 'k', $str);
+//	$str = preg_replace("/(L)/", 'l', $str);
+//	$str = preg_replace("/(M)/", 'm', $str);
+//	$str = preg_replace("/(N)/", 'n', $str);
+//	$str = preg_replace("/(O)/", 'o', $str);
+//	$str = preg_replace("/(Y)/", 'y', $str);
+//	$str = preg_replace("/(Z)/", 'z', $str);
+//	$str = preg_replace("/(X)/", 'x', $str);
+//        $str = preg_replace("/(,)/", '', $str);
+//	$str = preg_replace("/(\")/", '', $str);
+//	$str = preg_replace("/(“|”)/", '', $str);
+//	$str = preg_replace("/(\?)/", '', $str);
+//	$str = preg_replace("/(,)/", '', $str);
+//	$str = preg_replace("/(\")/", '', $str);
+//	$str = preg_replace("/( )/", '-', $str);
+//	$str = preg_replace("/( – )/", '-', $str);
+//         $str = preg_replace("/(--)/", '-', $str);
+//        $str = preg_replace("/(---)/", '-', $str);
+//        $str = preg_replace("/(----)/", '-', $str);
+//	$str = preg_replace("/(‘|’)/", '', $str);
+//	$str = preg_replace("/(%)/", '', $str);
+//	$str = preg_replace("/\//", '-', $str);
+//	
+//	$str = preg_replace("/(')/", '', $str);
+//	$str = preg_replace("/(\(|\)|\:)/", '', $str);
+//	return $str;
+//	}
+ public	function stripSlug($str='') {
+    $str = preg_replace("/(à|á|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/", "a", $str);
+	$str = preg_replace("/(à)/", "a", $str);
+	$str = preg_replace("/(ó|ò)/", "o", $str);
+    $str = preg_replace("/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/", 'e', $str);
+    $str = preg_replace("/(ì|í|ị|ỉ|ĩ)/", 'i', $str);
+    $str = preg_replace("/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/", 'o', $str);
+    $str = preg_replace("/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/", 'u', $str);
+    $str = preg_replace("/(ỳ|ý|ỵ|ỷ|ỹ)/", 'y', $str);
+    $str = preg_replace("/(đ)/", 'd', $str);
+	$str = preg_replace("/(À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ)/", 'a', $str);
+    $str = preg_replace("/(È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ)/", 'e', $str);
+    $str = preg_replace("/(Ì|Í|Ị|Ỉ|Ĩ)/", 'i', $str);
+    $str = preg_replace("/(Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ)/", 'o', $str);
+    $str = preg_replace("/(Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ)/", 'u', $str);
+	$str = preg_replace("/(Ủ|U)/", 'u', $str);
+    $str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", 'y', $str);
+	$str = preg_replace("/(Đ|D)/", 'd', $str);
+    $str = preg_replace("/(A)/", 'a', $str);
+	$str = preg_replace("/(B)/", 'b', $str);
+	$str = preg_replace("/(C)/", 'c', $str);
+	$str = preg_replace("/(D)/", 'd', $str);
+	$str = preg_replace("/(E)/", 'e', $str);
+	$str = preg_replace("/(G)/", 'g', $str);
+	$str = preg_replace("/(H)/", 'h', $str);
+	$str = preg_replace("/(I)/", 'i', $str);
+	$str = preg_replace("/(K)/", 'k', $str);
+	$str = preg_replace("/(L)/", 'l', $str);
+	$str = preg_replace("/(M)/", 'm', $str);
+	$str = preg_replace("/(N)/", 'n', $str);
+	$str = preg_replace("/(S)/", 's', $str);
+	$str = preg_replace("/(O)/", 'o', $str);
+	$str = preg_replace("/(T)/", 't', $str);
+	$str = preg_replace("/(R)/", 'r', $str);
+	$str = preg_replace("/(P)/", 'p', $str);
+	$str = preg_replace("/(Y)/", 'y', $str);
+	$str = preg_replace("/(Z)/", 'z', $str);
+	$str = preg_replace("/(X)/", 'x', $str);
+        $str = preg_replace("/(,)/", '', $str);
+	$str = preg_replace("/(\")/", '', $str);
+	$str = preg_replace("/(“|”)/", '', $str);
+	$str = preg_replace("/(\?)/", '', $str);
+        $str = preg_replace("/(\[)/", '', $str);
+        $str = preg_replace("/(\])/", '', $str);
+        $str = preg_replace("/(\*)/", '', $str);
+        $str = preg_replace("/(\!)/", '', $str);
+	$str = preg_replace("/(,)/", '', $str);
+	$str = preg_replace("/(\")/", '', $str);
+        $str = preg_replace('/\s\s+/', '', $str);
+	$str = preg_replace("/( )/", '-', $str);
+        $str = preg_replace("/(_)/", '-', $str);
+        $str = preg_replace("/(___)/", '-', $str);
+        $str = preg_replace("/(____)/", '-', $str);
+	$str = preg_replace("/( – )/", '-', $str);
+        $str = preg_replace("/(--)/", '-', $str);
+        $str = preg_replace("/(---)/", '-', $str);
+        $str = preg_replace("/(----)/", '-', $str);
+	$str = preg_replace("/(‘|’)/", '', $str);
+	$str = preg_replace("/(%)/", '', $str);
+	$str = preg_replace("/\//", '-', $str);
+	$str = preg_replace("/(')/", '', $str);
+	$str = preg_replace("/(\(|\)|\:)/", '', $str);
+	return $str;
+	}
+ 
+ public function wordsToNumber($data) {
+    // Replace all number words with an equivalent numeric value
+    $data = strtr(
+        $data,
+        array(
+            'không'      => '0',
+			'một'       => '1',
+            'hai'       => '2',
+            'ba'     => '3',
+            'bốn'      => '4',
+            'năm'      => '5',
+            'sáu'       => '6',
+            'bảy'     => '7',
+            'tám'     => '8',
+            'chín'      => '9',
+            'mười'       => '10',
+            'mười một'    => '11',
+            'mười hai'    => '12',
+            'mười ba'  => '13',
+            'mười bốn'  => '14',
+            'mười lăm'   => '15',
+            'mười sáu'   => '16',
+            'mười bảy' => '17',
+            'mười tám'  => '18',
+            'mười chín'  => '19',
+            'hai mươi'    => '20',
+            'ba mươi'    => '30',
+            'buốn mươi'     => '40',
+            'năm mươi'     => '50',
+            'sáu mươi'     => '60',
+            'bảy mươi'   => '70',
+            'tám mươi'    => '80',
+            'chín mươi'    => '90',
+            'trăm'   => '100',
+            'nghìn'  => '1000',
+            'triệu'   => '1000000',
+            'tỷ'   => '1000000000',
+            'and'       => '',
+        )
+    );
+
+    // Coerce all tokens to numbers
+    $parts = array_map(
+        function ($val) {
+            return floatval($val);
+        },
+        preg_split('/[\s-]+/', $data)
+    );
+
+    $stack = new \SplStack; // Current work stack
+    $sum   = 0; // Running total
+    $last  = null;
+
+    foreach ($parts as $part) {
+        if (!$stack->isEmpty()) {
+            // We're part way through a phrase
+            if ($stack->top() > $part) {
+                // Decreasing step, e.g. from hundreds to ones
+                if ($last >= 1000) {
+                    // If we drop from more than 1000 then we've finished the phrase
+                    $sum += $stack->pop();
+                    // This is the first element of a new phrase
+                    $stack->push($part);
+                } else {
+                    // Drop down from less than 1000, just addition
+                    // e.g. "seventy one" -> "70 1" -> "70 + 1"
+                    $stack->push($stack->pop() + $part);
+                }
+            } else {
+                // Increasing step, e.g ones to hundreds
+                $stack->push($stack->pop() * $part);
+            }
+        } else {
+            // This is the first element of a new phrase
+            $stack->push($part);
+        }
+
+        // Store the last processed part
+        $last = $part;
+    }
+
+    return $sum + $stack->pop();
+}
+
+   
+  
+}

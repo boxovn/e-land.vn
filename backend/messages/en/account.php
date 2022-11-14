@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'personal_information' => 'PROFESSIONAL INFORMATION',
+    'name' => 'Full name',
+    'phone' => 'Phone',
+    'address' => 'Address',
+    'change_password' => 'CHANGING PASSWORD',
+    'email' => 'Email',
+    'old_pass' => 'Old password',
+    'new_pass' => 'New password',
+    'repeat_pass' => 'Repeat password',
+    'submit' => 'Submit',
+    'schedule_class' => 'Your schedule  (using <!--Firefox,--> Chrome)',
+    'stt' => 'No.',
+    'date_start' => 'Date',
+    'time' => 'Time',
+    'teacher' => 'Teacher',
+    'status' => 'Status',
+    'history_payment' => 'Payment history',
+    'package_name' => 'Package',
+    'quantity' => 'Lesson',
+    'price' => 'Price',
+    'test_title' => 'Placement Test',
+    'test_des' => 'Let do the test to book class',
+    'test_button' => 'Do the test',
+    'number_of_class' => 'Number of lession',
+    'join_class' => 'Join Class',
+    'completing' => 'completing',
+    'cancel' => 'Cancel'
+];

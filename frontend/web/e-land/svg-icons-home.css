@@ -1,0 +1,51 @@
+.home-icon:before {
+    display: inline-block;
+    background-image: url("img/svg-icons-home.svg");
+    content: '';
+}
+.home-icon-arrow:before {
+    width: 20px;
+    height: 20px;
+    background-position: -14px -397px;
+}
+.home-icon-bathroom{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+    background-position: -66px -248px;
+  
+}
+.home-icon-direction{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+   
+    background-position: -17px -247px;
+}
+.home-icon-bedroom{
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        left: 0;
+        top: -2px;
+        background-position: -113px -247px;
+       
+}
+.home-icon-address{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+    background-position: -159px -249px;
+    
+}
+
+
+
+
+

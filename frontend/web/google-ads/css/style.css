@@ -1,0 +1,297 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap");
+body {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  font-weight: normal;
+}
+:root {
+  --prm-color: #f33;
+  --prm-gray: #b1b1b1;
+}
+a {
+    text-decoration: none;
+}
+a.logo {
+    color: #fff;
+    font-size: 30px;
+}
+ul {
+  list-style-type: none;
+}
+.card-title {
+  margin-bottom: 0.5rem;
+  font-size: 24px;
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  text-align: center;
+  font-weight: 400;
+}
+.btn-register {
+  background: url("../img/btn-cta.png");
+  width: 225px;
+  height: 65px;
+  float: left;
+}
+/*  unnecessary finished*/
+
+/* CSS */
+.steps {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+.step-button {
+  border-radius: 50%;
+}
+.done {
+  background-color: var(--prm-color);
+  color: #fff;
+}
+
+.step-item {
+  z-index: 10;
+  text-align: center;
+}
+
+#progress {
+  -webkit-appearance: none;
+  position: absolute;
+  width: 80%;
+  z-index: 5;
+  height: 10px;
+  margin-left: 10%;
+  margin-bottom: 128px;
+}
+
+/* to customize progress bar */
+#progress::-webkit-progress-value {
+  background-color: var(--prm-color);
+  transition: 0.5s ease;
+}
+
+#progress::-webkit-progress-bar {
+  background-color: var(--prm-gray);
+}
+
+/* MARKETING CONTENT
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: 400;
+}
+/* rtl:begin:ignore */
+.marketing .col-lg-4 p {
+  margin-right: 0.75rem;
+  margin-left: 0.75rem;
+}
+/* rtl:end:ignore */
+.bi {
+  vertical-align: -0.125em;
+  fill: currentColor;
+}
+
+.feature-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #fff;
+  border-radius: 0.75rem;
+}
+
+.icon-link {
+  display: inline-flex;
+  align-items: center;
+}
+.icon-link > .bi {
+  margin-top: 0.125rem;
+  margin-left: 0.125rem;
+  transition: transform 0.25s ease-in-out;
+  fill: currentColor;
+}
+.icon-link:hover > .bi {
+  transform: translate(0.25rem);
+}
+
+.icon-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+.rounded-4 {
+  border-radius: 0.5rem;
+}
+.rounded-5 {
+  border-radius: 1rem;
+}
+
+.text-shadow-1 {
+  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.25);
+}
+.text-shadow-2 {
+  text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.25);
+}
+.text-shadow-3 {
+  text-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.card-cover {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+.img-hero {
+  width: 100%;
+}
+.header {
+  color: #333;
+  width: 100%;
+}
+
+.banner {
+  padding: 0px;
+  background-image: url("../img/google-ads-bg.png");
+
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: right top;
+}
+.header .top {
+  background-color: #ffa401;
+  color: #fff;
+  padding: 10px 0px 20px 0px;
+}
+.header .hot-line {
+  float: left;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+  line-height: 40px;
+}
+.header .center {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+.header .social {
+  float: right;
+}
+.header .navbar-nav {
+  list-style: none;
+}
+.header .navbar .navbar-nav .nav-item {
+  margin-left: 30px;
+  top: 0;
+  bottom: 0;
+  margin: auto 30px 10px;
+}
+.header .content-left {
+  padding: 30px 0px;
+  float: left;
+}
+.header .content-left .description {
+  padding: 20px 0px;
+  float: left;
+}
+.header .content-left .name {
+  font-size: 30px;
+}
+.header .content-left .name .name-1 {
+  font-size: 60px;
+  color: #ffa401;
+}
+.header .content-left .title {
+  font-weight: bold;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+.header .content-left ul {
+  list-style-type: none;
+  list-style-image: url("../img/bullet.png");
+}
+.header .content-left ul li {
+  margin-bottom: 10px;
+}
+
+.header .content-right .img-hero {
+  height: 600px;
+}
+.section {
+  padding: 60px 0px;
+}
+.section .box {
+  text-align: center;
+}
+.section .title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+.section .title::after {
+  content: "";
+  border-bottom: 3px solid #ff3333;
+  width: 40px;
+  display: block;
+  margin: 10px auto;
+}
+.section .img {
+  margin: 10px auto;
+}
+.section .box-title {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+}
+.section {
+  padding: 60px 0px;
+}
+
+.section.body .title {
+  margin: 50px auto;
+  max-width: 500px;
+  font-weight: normal;
+}
+.section.body .title:after {
+  content: "";
+  border-bottom: 3px solid #fff;
+  width: 40px;
+  display: block;
+  margin: 10px auto;
+}
+
+.section.body .description {
+  margin: 0px auto;
+  max-width: 560px;
+  padding: 30px 0px;
+  text-align: center;
+  font-size: 16px;
+}
+.section.body .video {
+  margin: 0px auto;
+  max-width: 560px;
+  height: 315px;
+}
+.footer {
+  padding: 30px;
+  background-color: #8ab3e0;
+  color: #fff;
+  text-align: center;
+}

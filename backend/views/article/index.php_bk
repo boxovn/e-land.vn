@@ -1,0 +1,243 @@
+<?php
+use backend\widgets\Alert;
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use common\models\Article;
+
+
+/* @var $this yii\web\View */
+/* @var $searchModel backend\models\UserSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Bài đăng';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                     <?= Html::encode($this->title) ?>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-home"></i> Trang chủ</a></li>
+                    <li class="active">Danh mục</li>
+                </ol>
+            </section>
+             <!-- Main content -->
+            <section class="content">
+                <div class="row">
+				    <div class="col-xs-12">
+				    	<div class="box">
+				            <div class="box-header">
+				                <h3 class="box-title">Danh sách</h3>
+							</div>
+				            <!-- /.box-header -->
+				            <div class="box-body table-responsive">
+										<?php
+											echo GridView::widget([
+											'dataProvider' => $dataProvider,
+											'filterModel' => $searchModel,
+											'layout' => "{summary}\n{pager}\n{items}\n{pager}",
+											'showFooter' => true,
+											 'rowOptions' => function ($model, $key, $index, $grid) {
+												return ['id' => $model->id];
+											},
+											'pager' => [
+														'firstPageLabel' => 'First',
+														'lastPageLabel' => 'Last',
+													],
+											'columns' => [
+												[
+													'attribute' => 'id',
+													'class' => 'yii\grid\DataColumn',
+													 'contentOptions' => ['class' => 'text-content'],
+                           							 'headerOptions' => ['class' => 'text-header']
+												],
+												[
+													'attribute' => 'title',
+													'class' => 'yii\grid\DataColumn',
+													'label' => 'Tin rao',
+													'value' => function($data){
+														return $data->title;
+													},
+													'contentOptions' => ['class' => 'text-content'],
+                           							 'headerOptions' => ['class' => 'text-header',]
+												],
+												 [
+													'attribute' => 'status',
+													'class' => 'yii\grid\DataColumn',
+													'label' => 'Trạng thái',
+													'format' => 'raw',
+													'value' => function($data){
+														return $data->status?'<span class="label label-warning">Đang rao bán</span>': '<span class="label label-default">Ẩn tin</span>';
+													},
+													'contentOptions' => ['class' => 'text-content'],
+                           							 'headerOptions' => ['class' => 'text-header'],
+                           							 'filter' => [1 => 'Đang rao bán', 0 => 'Ẩn tin']
+												],
+												[
+												   //'attribute' => 'status',
+												   'class' => 'yii\grid\CheckboxColumn',
+												//	'format' => 'raw',
+													'header' => Html::checkBox('selection_all', false, [
+																'class' => 'select-on-check-all',
+																'label' => '',
+													]),
+													'checkboxOptions' => function($model, $key, $index, $widget) {
+															return ["value" => $model->id];
+													},
+													'contentOptions' => ['class' => 'text-content'],
+                           							 'headerOptions' => ['class' => 'text-header']
+												],
+												[
+													'attribute' => 'area_text',
+													'class' => 'yii\grid\DataColumn',
+													'label' => 'Diện tích',
+													'contentOptions' => ['class' => 'text-content'],
+                           							 'headerOptions' => ['class' => 'text-header']
+												],
+												 [
+													'attribute' => 'price_text',
+													'class' => 'yii\grid\DataColumn',
+													'label' => 'Giá',
+													'contentOptions' => ['class' => 'text-content'],
+                           							 'headerOptions' => ['class' => 'text-header']
+												],
+												[
+													'attribute' => 'title',
+													'class' => 'yii\grid\DataColumn',
+													'label' => 'Tin rao',
+													'value' => function($data){
+														return $data->articleType->title; 
+													},
+													'contentOptions' => ['class' => 'text-content'],
+                           							 'headerOptions' => ['class' => 'text-header']
+												],
+												[
+													'attribute' => 'created',
+													'class' => 'yii\grid\DataColumn',
+													'label' => 'Ngày đăng',
+													'value' => function($data){
+														return date('d/m/Y',strtotime($data->created)); 
+													},
+													'contentOptions' => ['class' => 'text-content'],
+                           							 'headerOptions' => ['class' => 'text-header']
+												],
+												
+												
+												[
+
+                'format' => 'raw',
+
+                'value' => function($model, $key, $index, $column) {
+
+                        return Html::a(
+
+                            '<i class="fa fa-info"></i> Sản phẩm',
+
+                            Url::to(['note-info/view', 'id' => $model->note_info_id]), 
+
+                            [
+
+                                'id'=>'grid-custom-button',
+
+                                'data-pjax'=>true,
+
+                                'action'=>Url::to(['note-info/view', 'id' => $model->note_info_id]),
+                                	'style' => "width:85px",
+                                'class'=>'btn btn-sm btn-info',
+
+                            ]
+
+                        );
+
+                }
+
+            ],
+												[	
+												'class' => 'yii\grid\ActionColumn',
+												'contentOptions' => ['style' => 'width: 8.7%'],
+												'header' => Html::a('Thêm', ['add','menu_level' => 'field'], ['class' => 'btn btn-primary btn-xs','style' => "width:85px" ]),
+
+					'buttons'=>[
+						
+							'view'=>function ($url, $model) {
+								
+								return Html::tag('div',Html::a('<span class="glyphicon glyphicon-eye-open"></span> Xem', ['view', 'id'=> $model->id,'menu_level' => 'field'], ['class' => 'btn btn-primary btn-xs custom_button','style' => "width:85px"]));
+							},
+							'update'=>function ($url, $model) {
+								
+								return Html::tag('div',Html::a('<span class="glyphicon glyphicon-edit"></span> Sửa', ['add', 'id'=> $model->id,'menu_level' => 'field'], ['class' => 'btn btn-warning btn-xs custom_button','style' => "width:85px"]));
+							},
+							'delete'=>function ($url, $model) {
+								//$t = 'index.php?r=social/delete&id='. $model->id;
+								return Html::tag('div',Html::a('<span class="glyphicon glyphicon-trash"></span> Xóa', ['delete', 'id'=> $model->id,'menu_level' => 'field'], [
+									'class' => 'btn btn-danger btn-xs custom_button',
+									'style' => "width:85px",
+									'data' => [
+										'confirm' => 'Bạn có muốn xóa mục này?',
+										'method' => 'post',
+									],
+									]));
+								
+							},
+					
+								  
+				],
+				],
+											],
+										]);
+										?>
+                      </div>
+				            <!-- /.box-body -->
+				        </div>
+				        <!-- /.box -->
+				    </div>
+				</div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        
+   <script>
+function btnDelete(id) {
+  var r = confirm("Bạn muốn xóa bài viết này?");
+  if (r == true) {
+		window.location.href = "<?php echo yii::$app->urlManager->createUrl(["article/delete"]);?>&id=" + id;
+} else {
+  console.log("Bạn đã hủy!");
+}
+ 
+}
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+		 var selection = [];
+    $(options.grid + ' input:checkbox[name="selection[]"]:checked').each(function() {
+        selection.push($(this).val());
+    });
+        $("input:checkbox").change(function () {
+			var id= this.value;
+			var status= this.checked;
+			console.log(id);
+			console.log(status);
+			$.ajax({
+                url: '<?php echo yii::$app->urlManager->createUrl(['article/checked']) ?>',
+                type: 'POST',
+                dataType: 'json',
+                // contentType: "application/json; charset=utf-8",
+                data: {id: id, status: status},
+                success: function (data) {
+					if (data.status === 1) {
+                        $('#label' + data.id).removeClass("text-default").addClass("text-primary").html(data.text);
+                    } else {
+                        $('#label' + data.id).removeClass("text-primary").addClass("text-default").html(data.text);
+                    }
+                }
+            });
+        });
+    });
+
+</script>

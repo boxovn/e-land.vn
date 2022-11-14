@@ -1,0 +1,400 @@
+<?php 
+use  yii\helpers\Url;
+use common\libraries\PseudoCrypt;
+use frontend\widgets\Rate;
+use frontend\widgets\DistrictApartment;
+use yii\widgets\Breadcrumbs;
+use yii\helpers\Html;
+$user = \Yii::$app->user->identity;?>
+<style>
+#carousel-project .item img {
+    width: 100%;
+    height: 800px;
+    /*  height: 650px;
+   margin: 0px auto;*/
+}
+
+.project-section .project-head {
+    position: absolute;
+    color: #fff;
+    z-index: 90;
+    width: 100%;
+    height: 50px;
+    border-bottom: 1px solid #000;
+    background: linear-gradient(to left, rgb(0 0 0 / 0.4), rgb(0 0 0 / 0.4));
+    background: -moz-linear-gradient(left, rgb(0 0 0 / 0.4), rgb(0 0 0 / 0.4));
+    background: -webkit-linear-gradient(left, rgb(0 0 0 / 0.4), rgb(0 0 0 / 0.4));
+    background: -o-linear-gradient(left, rgb(0 0 0 / 0.4), rgb(0 0 0 / 0.4));
+}
+
+.project-section .project-head ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 50px;
+}
+
+.project-section .project-head ul li {
+    float: left;
+    margin-right: 30px;
+    height: 50px;
+    float: left;
+    line-height: 50px;
+}
+
+.project-section .project-head ul li a {
+    color: #fff;
+}
+
+.project-section .project-head ul li:last-child {
+    float: right;
+}
+
+.project-section .project-right-content {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    background: linear-gradient(to left, rgb(0 0 0 / 0.6), rgb(0 0 0 / 0.6));
+    background: -moz-linear-gradient(left, rgb(0 0 0 / 0.6), rgb(0 0 0 / 0.6));
+    background: -webkit-linear-gradient(left, rgb(0 0 0 / 0.6), rgb(0 0 0 / 0.6));
+    background: -o-linear-gradient(left, rgb(0 0 0 / 0.6), rgb(0 0 0 / 0.6));
+    color: #fff;
+    height: calc(800px - 140px);
+    padding: 30px 20px;
+    margin: 40px 0px;
+}
+
+.project-section .project-right-content .box-investor a {
+    color: #fff;
+}
+
+.project-section .project-right-content .box .img {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    float: left;
+    position: relative;
+    left: 0px;
+    border: 1px solid #ddd;
+}
+
+.section-title {
+    height: 100px;
+}
+
+.section-title h2 {
+    text-align: center;
+    color: #ff0000;
+    font-size: 26px;
+}
+
+.section-title h2:before {
+    content: "";
+    position: absolute;
+    background: url(data:image/png;base64,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) no-repeat;
+    width: 424px;
+    height: 27px;
+    margin: 0 auto;
+    top: 40px;
+    left: 0;
+    right: 0;
+}
+</style>
+<div class="project-section">
+    <div class="project-head">
+        <div class="row">
+            <div class="col-md-12">
+                <ul>
+                    <?php if($model->projectSections){?>
+                    <?php foreach($model->projectSections as $key => $value){ ?>
+                    <?php if($value->title){?>
+                    <li>
+                        <a href="#<?php echo $value->slug; ?>"> <?php echo $value->title; ?></a>
+                    </li>
+                    <?php } ?>
+                    <?php } ?>
+                    <?php } ?>
+                    <li><a class="btn btn-sm btn-danger" href="#">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                            Tải bảng báo giá</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?php if(isset($model->projectBanners) && $model->projectBanners){?>
+    <div class="project-slider">
+        <div class="col-md-12 nopadding">
+            <div class="product-slider">
+                <div id="carousel-project" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <?php foreach($model->projectBanners as $key => $value){?>
+                        <li data-target="#carousel-project" data-slide-to="<?php echo $key;?>"
+                            <?php echo ($key==0)?'class="active"':'';?>></li>
+                        <?php }?>
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <?php foreach($model->projectBanners as $key => $value){?>
+                        <?php if(@getimagesize(Url::to('@web/channels/projects/banner/' . $value->file_name, true))){ ?>
+                        <div class="item <?php echo ($key==0)? 'active':'';?>">
+                            <img
+                                src="<?php echo Url::to('@web/channels/projects/banner/' . $value->file_name, true);?>">
+                        </div>
+                        <?php }else{ ?>
+                        <div class="item <?php echo ($key==0)? 'active':'';?>">
+                            <img src="<?php echo Url::to('@web/channels/no-image745x510.png', true);?>">
+                        </div>
+                        <?php }?>
+                        <?php }?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="project-right-content col-md-4 nopadding">
+        <div class="box">
+            <div class="project-name">
+                <h1><?php echo $model->name;?></h1>
+            </div>
+            <div class="prject-adress">
+                <span style="font-style:italic"><?php echo $model->address;?></span>
+            </div>
+            <?php if(isset($model->projectInvestors)){?>
+            <div style="border-top:1px solid #ddd; margin: 10px; width:100%; float:left"></div>
+            <div class="box-body box-investor" style="float:left; width:100%;">
+                <?php foreach($model->projectInvestors as $key => $value){?>
+                <div style="float:left; width:100%; margin-bottom:10px;"> Chủ đầu tư: </div>
+                <div class="info-investor-header" style="float:left; width:100%;">
+                    <a title="<?php echo $value->name; ?>"
+                        href="<?php echo Yii::$app->params['elandUrl'];?>kenh/<?php echo $value->id; ?>">
+                        <img id="notifi_<?php echo $value->id;?>" class="img"
+                            src="<?php echo Url::to('@web/channels/avatar/' . $value->logo, true); ?>"
+                            alt="<?php echo $value->name; ?>"
+                            onerror="if (this.src != 'error.jpg') this.src = '<?php echo Url::to('@web/images/no-image100x100.png', true)?>';" />
+                    </a>
+                    <div class="box-right">
+                        <a title="<?php echo $value->name; ?>"
+                            href="<?php echo Yii::$app->params['elandUrl'];?>kenh/<?php echo $value->id; ?>"><?php echo $value->name; ?></a>
+                    </div>
+                </div>
+                <?php }?>
+                <div class="info-investor-detail" style="float:left;width:100%;padding-left: 80px;">
+
+                    <div style="width:100%;float:left; margin-bottom:5px; font-size:small">
+                        Dự án: <span class="label label-info"><?php echo $model->apartmentCategory->name;?></span>
+                    </div>
+
+                    <div style="width:100%;float:left; margin-bottom:5px; font-size:small">
+                        Website: <a href="<?php echo $model->website;?>"><?php echo $model->website;?></a><span>
+                    </div>
+                </div>
+            </div>
+            <?php }?>
+            <?php if(isset($model->user)){?>
+            <!--user -->
+            <div style="border-top:1px solid #ddd; margin: 10px; float:left; width:100%; "></div>
+            <div class="box-body box-profile" style="float:left; width:100%;">
+                <div style="margin-bottom:10px;"> Hỗ trợ tư vấn: </div>
+                <a title="<?php echo $model->user->name; ?>"
+                    href="<?php echo Yii::$app->params['elandUrl'];?>kenh/<?php echo $model->user->id; ?>">
+                    <span class="status status_<?php echo $model->user->id; ?>"
+                        id="status_<?php echo $model->user->id; ?>"></span>
+                    <?php if(@getimagesize(Url::to('@web/channels/avatar/' . $model->user->image, true))){ ?>
+                    <img id="notifi_<?php echo $model->user->id;?>" class="img"
+                        src="<?php echo Url::to('@web/channels/avatar/' . $model->user->image, true); ?>"
+                        alt="<?php echo $model->user->name; ?>" />
+                    <?php }else{ ?>
+                    <img id="notifi_<?php echo $model->user->id;?>" class="img"
+                        src="<?php echo Url::to('@web/images/no-image100x100.png', true); ?>"
+                        alt="<?php echo $model->user->name; ?>" />
+                    <?php }?>
+                    <input type="hidden" name="receiver[]" value="<?php echo $model->user->id; ?>">
+                </a>
+                <div class="box-user">
+                    <div class="user-info-head">
+                        <a title="<?php echo $model->user->name; ?>"
+                            href="<?php echo Yii::$app->params['elandUrl'];?>kenh/<?php echo $model->user->id; ?>">
+                            <?php echo $model->user->name; ?>
+
+                        </a>
+                    </div>
+                    <div class="user-info-detail" style="float:left; width:100%; padding-left: 80px;">
+                        <div class="item-info-detail">
+                            <?php if(isset($model->projectContacts)){?>
+                            <?php foreach($model->projectContacts as $key => $value){?>
+                            <div style="width:100%;float:left; margin-bottom:5px; font-size:small">
+                                <label><i class="fa fa-phone-square fa-lg" aria-hidden="true"></i> </label>
+                                <?php echo $value->phone;?>
+                            </div>
+                            <div style="width:100%;float:left; margin-bottom:5px; font-size:small">
+                                <label><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i> </label>
+                                <?php echo $value->address;?>
+                            </div>
+                            <?php } ?>
+                            <?php } ?>
+                            <div class="box-chat" style="width:100%;float:left; margin-bottom:5px;">
+                                <?php 
+                                    $user = \Yii::$app->user->identity;
+                                    if($model->user->id!=Yii::$app->user->id){ ?>
+                                <div class="btn-chat"
+                                    onclick="register_popup(<?php echo ((isset($user)?$user->id:0) + $model->user->id);?>,<?php echo isset($user)?$user->id:0;?>,'<?php echo preg_replace( "/\r|\n/", "", isset($user)?$user->name:'');?>',<?php echo $model->user->id; ?>,'<?php echo preg_replace( "/\r|\n/", "", $model->user->name);?>')">
+                                    <i class="fa fa-comments-o fa-lg" aria-hidden="true"></i> <small>Nhắn tin cho
+                                        tôi</small>
+                                </div>
+                                <?php }?>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+        <?php }?>
+    </div>
+    <?php }else{?>
+    <div class="project-slider">
+        <div class="col-md-12 nopadding">
+            <div class="product-slider">
+                <div id="carousel-project" class="carousel slide" data-ride="carousel">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="<?php echo Url::to('@web/images/no-image745x510.png', true);?>">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php }?>
+</div>
+<!-- detail project -->
+<div class="article-head">
+    <div>
+        <?php
+                  $links=[];
+                        if($model->province){
+                                $links []= [
+                                  'label' => Html::encode($model->province->name),
+                                  'url' => ['project/province','slug' => $model->province->slug],
+                                  'template' => "<li><b>{link}</b></li>", // template for this link only
+                              ];
+                        }
+                        if($model->district){
+                                $links []= [
+                                  'label' => Html::encode($model->district->type . ' ' . $model->district->name),
+                                  'url' => ['project/district','province' => $model->province->slug,'slug' => $model->district->slug],
+                                  'template' => "<li><b>{link}</b></li>", // template for this link only
+                              ];
+                        }
+                       
+                        if($model){
+                                        $links []=  [
+                                          'label' => Html::encode($model->name),
+                                        
+                                      ];
+                            }
+                      
+                  // $this is the view object currently being used
+                  echo Breadcrumbs::widget([
+                      // 'itemTemplate' => "<li><i>{link}</i></li>\n", // template for all links
+                      'homeLink' => [
+                          'label' => 'Trang chủ',
+                          'url' =>  ['article/index'],
+                           'template' => "<li><b>{link}</b></li>", // template for this link only
+                      ],
+                      'links' => $links,
+
+                  ]);
+                  ?>
+    </div>
+</div>
+<?php if($model->projectSections){?>
+<?php foreach($model->projectSections as $key => $value){ ?>
+<?php if($value->description && $value->image){?>
+<div class="article-detail">
+    <div id="<?php echo $value->slug; ?>" class="article-content">
+        <div class="col-md-12 section-title">
+            <h2 class="title"><?php echo $value->title;?></h2>
+        </div>
+
+        <div class="col-md-6">
+            <?php echo $value->description;?>
+        </div>
+        <div class="col-md-6">
+            <img src="<?php echo Url::to('@web/channels/projects/section/' . $value->image, true);?>" />
+        </div>
+
+    </div>
+</div>
+<?php }elseif($value->description){ ?>
+<div class="article-detail">
+    <div id="<?php echo $value->slug; ?>" class="article-content">
+        <div class="col-md-12 section-title">
+            <h2 class="title"><?php echo $value->title;?></h2>
+        </div>
+        <div>
+            <?php echo $value->description;?>
+        </div>
+    </div>
+</div>
+<?php } ?>
+<?php } ?>
+<?php } ?>
+<?php if($model->projectInvestors){?>
+<div class="article-detail">
+    <?php foreach($model->projectInvestors as $key => $value){ ?>
+    <?php if($value->description){?>
+    <div id="<?php echo $value->slug; ?>" class="article-content">
+        <div>
+            <?php echo $value->description;?>
+        </div>
+    </div>
+    <?php } ?>
+</div>
+<?php } ?>
+<?php } ?>
+<?php echo Rate::widget(['article_id' => $model->id]); ?>
+<script type="text/javascript">
+/*tab*/
+
+$(function() {
+    $(".project-head ul li a, #ctsElsWrapper a").click(function(e) {
+        e.preventDefault();
+        $('.cts-dot').removeClass("cts-dot-white");
+        $(this).addClass('cts-dot-white');
+        var aid = $(this).attr("href");
+        $('html,body').animate({
+            scrollTop: $(aid).offset().top - 150
+        }, 'slow');
+    });
+
+});
+/*end tab
+ cts-ar-white
+*/
+</script>
+<?php if($model->projectSections){?>
+<div id="ctsElsWrapper" class="hidden-xs">
+    <a target="_self" title="" class="cts-arrow cts-up cts-smsc" href="#carousel-project"></a>
+    <div>
+    </div>
+
+    <?php foreach($model->projectSections as $key => $value){ ?>
+    <?php if($value->title){?>
+    <a href="#<?php echo $value->slug; ?>" target="_self" title="<?php echo $value->title; ?>"
+        class="cts-dot cts-smsc"></a>
+    <?php } ?>
+    <?php } ?>
+    <a target="_self" title="" class="cts-arrow cts-down cts-smsc"
+        href="#<?php echo $model->projectSections[(count($model->projectSections)-1)]->slug;?>"></a>
+
+    <!-- <a href="#ctsAddedId0" target="_self" title="" class="cts-dot cts-smsc"></a>
+    <a href="#ctsAddedId1" target="_self" title="" class="cts-dot cts-smsc cts-dot-white"></a>
+    <a href="#ctsAddedId2" target="_self" title="" class="cts-dot cts-smsc"></a>-->
+</div>
+<?php } ?>

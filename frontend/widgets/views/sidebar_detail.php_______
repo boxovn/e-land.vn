@@ -1,0 +1,33 @@
+<!-- Sidebar -->
+<div class="w3-sidebar w3-bar-block w3-animate-left" style="display:none;z-index:5" id="mySidebar">
+	<div class="block-item-top">
+	<a href="#" class="w3-button w3-padding-16" id="openNav" onclick="w3_close()">☰</a>
+	</div>
+	
+	<div class="block-item">
+        <a href="/" class="block-item-city"><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a>
+        <div class="block">
+            <?php foreach($categories as $category){?>
+            <div class="land-item-show"><a href="<?php echo Yii::$app->params['elandUrl'];?><?php echo $category->slug?$category->slug:'/';?>" class="w3-bar-item w3-button"><span class="category-icon"><img  src="<?php echo Yii::$app->params['elandUrl'];?>images/category_icon/apartement.png"/></span><?php echo $category->name;?></a></div>
+            <?php }?>
+        </div>
+
+        <a href="#" class="block-item-city">TP.HCM</a>
+        <?php foreach ($districts as $key => $value) { ?>
+            <?php if ($key < 5) { ?>
+                <div class="land-item-show"><a href="<?php echo Yii::$app->params['elandUrl'];?><?php echo $value->slug; ?>" title="<?php echo $value->name; ?>" class="w3-bar-item w3-button"><?php echo $value->type; ?> <?php echo $value->name; ?></a></div>
+            <?php } else { ?>
+                <div class="land-item"><a href="<?php echo Yii::$app->params['elandUrl'];?><?php echo $value->slug; ?>" title="<?php echo $value->name; ?>" class="w3-bar-item w3-button"><?php echo $value->type; ?> <?php echo $value->name; ?></a></div>
+            <?php } ?>
+        <?php } ?>
+        <button id="showr" class="w3-button w3-block w3-gray">Hiển thị thêm</button>
+        <button id="hidr" class="w3-button w3-block w3-gray">Ẩn bớt</button>
+        <div class="side-footer">
+            <p class="copy-right">@2008 e-land.vn</p>
+        </div>
+    </div>	
+<div class="w3-container w3-teal">
+  <h5>Footer</h5>
+  <p>Footer information goes here</p>
+</div>	
+</div>

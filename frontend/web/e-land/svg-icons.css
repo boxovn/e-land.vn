@@ -1,0 +1,32 @@
+.icon::before{
+    background-image: url(img/svg-icons.svg?v=28.05.2020);
+}
+.icon-home-search::before{
+    content: "";
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    position: absolute;
+    background-position: -62px -812px;
+    left: 5px;
+    top: 0;
+}
+.icon-login::before{
+    background-repeat: no-repeat;  
+    background-position: -50px -11px;
+    content: "";
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    float: left;
+}
+.icon-register::before{
+    background-repeat: no-repeat;
+    background-position: -50px -11px;
+    content: "";
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    float: left;
+}

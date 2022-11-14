@@ -1,0 +1,170 @@
+<?php
+use yii\helpers\Html;
+use Yii;
+use yii\helpers\Url;
+Yii::setAlias('@web', 'https://batdongsaneland.com');
+/* @var $this yii\web\View */
+/* @var $user common\models\User */
+$settingEmail =  Yii::$app->params['elandUrl']. 'kenh/' . $user->id. '/cai-dat';
+?>
+
+<table width="100%" style="font-size: 14pt; margin-bottom: 30px; background-color: rgb(204,204,204); border-radius: 4px;">
+    <tr>
+        <td style="padding: 20px">
+            <table align="center" bgcolor="white" cellpadding="0" cellspacing="0" style="margin-top:20px;border-radius:4px; width:100%; max-width:550px">
+                <tr>
+                    <td style="margin-bottom:15px;">
+                        <div style="height: 70px; border-bottom: 1px solid #c00;">
+                            <a title="Kênh rao bán bất động sản" href="<?php echo Yii::$app->params['elandUrl'];?>">
+                                    <img style="height:70px" src="https://batdongsaneland.com/images/e-land.jpg" />
+                                </a>
+                        </div>
+                    </td>
+                </tr>                
+                <tr>
+                    <td style="padding:20px">
+                            <div>
+                                        <label style="float: left; margin-right: 5px;font-weight: bold;">Tham gia nhóm | </label>
+                                         <a title="Nhóm facebok" href="https://www.facebook.com/groups/batdongsan.e.land.vietnam">
+                                            <img style="width:30px; height: 30px; float:left; margin-right: 10px" src="https://batdongsaneland.com/images/icon_facebook.png" />
+                                        </a>
+                                         <a title= "Nhóm zalo" href="https://zalo.me/g/yxpkti032">
+                                          <img style="width:30px; height: 30px; float:left; margin-right: 10px" src="https://batdongsaneland.com/images/icon_zalo.png" />
+                                        </a>
+                            </div>
+                              
+                        </td>
+                </tr>
+                <tr>
+                    <td style="padding:20px">
+                        
+                            <p>Chào <?php echo Html::encode($user->name) ?>,</p>
+                            <ul>
+                                <li><p>
+                                    Eland xin gửi tới bạn <?php echo count($articles);?> tin rao vừa được đăng mà bạn muốn quan tâm.
+                                    </p>
+                                </li>
+                                <li><p>Những tin rao mới này được hệ thống Eland tự động phân loại thông qua thuật toán tìm kiếm theo nhu cầu của bạn.</p>
+                                </li>
+                               
+                        </ul>
+                            
+                            <div style="margin-top:30px; float:left;"><strong><?php echo $title;?></strong></div>
+                           
+                    </td>
+                </tr>
+                <?php foreach ($articles as $key => $value) { ?>
+                <tr>
+                    <td style="padding: 20px;">
+                        <table style="border: 1px solid #ddd;  width:100%; float:left; border-radius: 4px;">
+                        <a 
+                                        title="<?php echo $value->title; ?>" class="title"
+                                        href="<?php echo Yii::$app->params['elandUrl'];?><?php echo  isset($value->province)?$value->province->slug:'';?>/<?php echo isset($value->district)?$value->district->slug:'';?>/<?php echo  isset($value->articleType)?$value->articleType->slug:'';?>/<?php echo $value->slug;?>">
+                        <img width="100%" alt="<?php echo $value->title;?>" onerror="if (this.src != 'error.jpg') this.src = '<?php echo Url::to('@web/images/no-image745x510.png', true)?>';"
+                                src="<?php echo Url::to('@web/channels/article/745x510/' .  $value->images[0]->image, true)?>" />
+                            </a>
+                        <div style="width: calc(100% - 20px); float:left; padding: 0 10px;">
+                            <div style="width: 100%; float: left;">
+                                <a style="padding: 0px; margin:5px 0px; font-size:13pt; color: #111; font-weight: bold; text-decoration: none; width: 100%;"
+                                        title="<?php echo $value->title; ?>" class="title"
+                                        href="<?php echo Yii::$app->params['elandUrl'];?><?php echo  isset($value->province)?$value->province->slug:'';?>/<?php echo isset($value->district)?$value->district->slug:'';?>/<?php echo  isset($value->articleType)?$value->articleType->slug:'';?>/<?php echo $value->slug;?>"><?php echo $value->title; ?></a>
+                                
+                                <div style=" width: 100%; padding: 3px 0; margin-top: 5px; float: left;">
+                                    <a style="padding: 0px; font-size: 13px; color: #111; font-weight: bold; text-decoration: none; width: 100%;"
+                                        title="<?php echo $value->user->name;?>"
+                                        href="<?php echo Yii::$app->params['elandUrl'];?>kenh/<?php echo $value->user->id; ?>">
+                                        <img alt="<?php echo $value->user->name;?>"
+                                            style="width: 50px; height: 50px; float: left; border: 1px solid #ddd; border-radius: 100px; margin-right: 10px;"
+                                            onerror="if (this.src != 'error.jpg') this.src = '<?php echo Url::to('@web/images/no-image200x200.png', true)?>';"
+                                            src="<?php echo Url::to('@web/channels/avatar/' .  $value->user->image, true)?>" />
+                                    </a>
+                                    <div style="width: calc(100% - 62px); float: left; font-size: 13pt">
+                                        <div style="width: 100%; float:left">
+                                            <span style="display: block;"><strong>Giá:
+                                                </strong><?php echo $value->price_text; ?></span>
+                                            <span style="display: block;"><strong>Diện tích : </strong>
+                                                <?php echo $value->area_text; ?></span>
+                                            <div style="width:100%; float:left;">
+                                                <div
+                                                    style=" font-size: 14pt; line-height: 18px; color: #337ab7; font-weight: normal; text-decoration: none; width: 100%; float: left; padding: 0px;">
+                                                    <?php if(isset($value->district) && isset($value->province)){?>
+                                                    <a title="<?php echo isset($value->district)?($value->district->type . ' ' . $value->district->name):'';?>"
+                                                        href="<?php echo Yii::$app->params['elandUrl'];?><?php echo $value->province->slug;?>/<?php echo $value->district->slug;?>">
+                                                        <?php echo isset($value->district)?($value->district->type . ' '. $value->district->name):'';?>
+                                                    </a>
+                                                    <a title="<?php echo isset($value->province)?$value->province->name:'';?>"
+                                                        href="<?php echo Yii::$app->params['elandUrl'];?><?php echo $value->province->slug;?>">
+                                                        , <?php echo isset($value->province)?$value->province->name:'';?>
+                                                    </a>
+                                                    <?php }?>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div style="width:100%; float:left;  font-size: 13px">
+
+                                            <a style="color: #fff; margin-top: 10px;
+                                            background-color: #c00;
+                                           text-decoration: none;
+                                            display: inline-block;
+                                            padding: 3px 15px;
+                                            border-radius: 2px;
+                                            float: right;
+                                           ;"
+                                                title="Xem chi tiết"
+                                                href="<?php echo Yii::$app->params['elandUrl'];?><?php echo  isset($value->province)?$value->province->slug:'';?>/<?php echo isset($value->district)?$value->district->slug:'';?>/<?php echo  isset($value->articleType)?$value->articleType->slug:'';?>/<?php echo $value->slug;?>">Xem
+                                                chi tiết</a>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        </table>
+                    </td>
+                </tr>
+                <?php } ?>
+                <tr>
+                    <td style="text-align: center; padding: 10px 0px;">
+                        <a style="color: #fff;background-color: #c00; border-color: #c00;text-decoration: none; display: inline-block; padding: 5px 15px; border-radius: 2px; margin: 0px auto"
+                            title="Xem chi tiết" href="<?php echo Yii::$app->params['elandUrl'];?>">Xem
+                            thêm</a>
+                    </td>
+                </tr>
+                <tr>
+                        <td style=" padding: 30px;">
+                                <div style="width:100%; border-radius: 1px; float:left; font-size: 13pt;">
+                      <p>Chúc bạn tìm được sản phẩm bất động sản ưng ý từ Eland</p>
+                       <p>Trân trọng!</p>
+                       <div style="font-size: 11pt; color: #5c5c5c; font-style:italic">
+                        <ul>
+                             <li><p>
+                                    Tìm kiếm nhiều sản phẩm hơn: 
+                                 <a title="Tìm kiếm" href="<?php echo Yii::$app->params['elandUrl'];?>">Tìm kiếm</a>
+                             </p></li>
+                             <li><p>
+                                    Đăng tin rao bán sản phẩm : <a title="Đăng tin rao" href="<?php echo Yii::$app->params['elandUrl'];?>dang-ky">Đăng ký & Đăng tin</a>
+                             </p></li>
+                        </ul>
+                            
+                            <p>Mọi thắc mắc xin vui lòng liên hệ:</p>
+                            <p>Email: <?php echo Yii::$app->params['elandEmail'];?></p>
+                            <p>Phone: <?php echo Yii::$app->params['elandPhone'];?> </p>
+                            <p>Địa chỉ: <?php echo Yii::$app->params['elandAddress'];?></p>
+                            
+                       </div>
+                        </div>
+                        </td>
+                </tr>
+                <tr>
+                        <td>
+                                <div style=" font-size: 11pt; background: radial-gradient(circle, rgba(244,185,71,1) 0%, rgba(181,113,41,1) 100%); padding: 10px">Công ty: <?php echo Yii::$app->params['elandCompany'];?></div>
+                        </td>
+                </tr>
+            </table>
+        
+</td>
+</tr>
+</table>

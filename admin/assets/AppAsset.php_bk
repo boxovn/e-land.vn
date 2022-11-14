@@ -1,0 +1,24 @@
+<?php
+namespace admin\assets;
+use yii\web\AssetBundle;
+/**
+ * Main admin application asset bundle.
+ */
+class AppAsset extends AssetBundle
+{
+    public $basePath = '@webroot';
+    public $baseUrl = '@web';
+    public $css = [
+		//'css/site.css',
+		'css/style.css',
+        'plugins/dropzone/dropzone.css'
+    ];
+    public $js = [
+		#'plugins/dropzone/dropzone.js',
+		#'plugins/dropzone/script.js',
+    ];
+    public $depends = [
+        'yii\web\YiiAsset',
+        'yii\bootstrap\BootstrapAsset',
+    ];
+}

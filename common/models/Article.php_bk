@@ -1,0 +1,179 @@
+<?php
+
+namespace common\models;
+
+use Yii;
+use yii\helpers\FileHelper;
+use common\libraries\PseudoCrypt;
+/**
+ * This is the model class for table "classes".
+ *
+ * @property integer $class_id
+ * @property string $start_date
+ * @property integer $status
+ * @property integer $max_student
+ * @property integer $counting_student
+ * @property integer $teacher_id
+ * @property integer $type
+ * @property integer $special
+ * @property integer $finished
+ * @property integer $hide
+ * @property integer $count_finished
+ * @property string $created
+ * @property string $comment
+ * @property string $link
+ *
+ * @property Teachers $teacher
+ */
+class Article extends \yii\db\ActiveRecord {
+   
+            /**
+     * @inheritdoc
+     */
+	// public $imageFile;
+    public static function tableName() {
+        return 'articles';
+    }
+
+    /**
+     * @inheritdoc
+     */
+     public function rules() {
+        return [
+			 [['title','area_text','price_text','type_id','content','province_id','district_id'], 'required','message' => '{attribute} không được bỏ trống'],
+			// [['imageFile'], 'file',  'skipOnEmpty' => false,
+             //  'extensions'=>'jpg, gif, png, jpeg',
+              // 'maxSize'=> 1024 * 1024 * 1, 'tooBig'=>'*Avatar would be less than 1MB',
+              // 'minSize'=> 1024*6, 'tooSmall' => '* Avatar would be more than 1KB',
+             //  'message' => '* Update has error',
+			//	'uploadRequired' => '* Please choose file',
+           //   'mimeTypes' => ['image/jpeg', 'image/pjpeg', 'image/png', 'image/gif'],
+                 
+              
+             //  ],
+			// [['title'], 'string', 'max' => 255, 'min' => 3],
+			 [['title','description', 'slug', 'user_id', 'type_id' , 'province_id', 'district_id',
+				'address', 'area_text', 'price_text' , 'area', 'price' ,
+				'price_word', 'price_number', 'description','content',
+				'expiry_date', 'updated','page_name', 'page_url', '	project_link' ,'street',
+				'project_id', 'detail','house_info_id'],
+			'safe'],
+           
+        ];
+    }
+	
+	 
+public function behaviors()
+{
+    return [
+        'slug' => [
+            'class' => 'skeeks\yii2\slug\SlugBehavior',
+            'slugAttribute' => 'slug',                      //The attribute to be generated
+            'attribute' => 'title',                          //The attribute from which will be generated
+            // optional params
+            'maxLength' => 64,                              //Maximum length of attribute slug
+            'minLength' => 3,                               //Min length of attribute slug
+            'ensureUnique' => true,
+            'slugifyOptions' => [
+                'lowercase' => true,
+                'separator' => '-',
+                'trim' => true
+                //'regexp' => '/([^A-Za-z0-9]|-)+/',
+                //'rulesets' => ['russian'],
+                //@see all options https://github.com/cocur/slugify
+            ]
+        ]
+    ];
+}
+     /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'title' => 'Tiêu đề',
+            'name' => 'Tên',
+            'type' => 'Kiểu',
+            'slug' => 'Slug',
+            'location' => 'Vị trí',
+            'province_id' => 'Tỉnh',
+            'district_id' => 'Huyện',
+            'content' => 'Nội dung',
+            'description' => 'Mô tả',
+            'image' => 'Hình ảnh',
+            'price_text' => 'Gía',
+            'area_text' => 'Diện tích'
+        ];
+    }
+  
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    
+
+     public function upload()
+    {
+			
+		
+        if ($this->validate() && $this->imageFile) {
+			$user = Yii::$app->user->identity;
+			$path = Yii::$app->params['PathImageArticle'] . 'images/';
+			FileHelper::createDirectory($path, $mode = 0775, $recursive = true);
+			$this->imageFile->saveAs($path  . $this->image);
+			return true;
+        } else {
+            return false;
+        }
+    }
+	public function getComments()
+    {
+        return $this->hasMany(CommentUser::className(), ['article_id' => 'id']);
+    }
+    /**
+     * get list status
+     * @return type
+     */
+     public function getImages()
+    {
+        return $this->hasMany(ArticleImage::className(), ['article_id' => 'id']);
+    }
+    public function getImage(){
+    //Related model Class Name
+    //related column name as select
+		return $this->hasOne(ArticleImage::className() ,['article_id' => 'id'])->select('image')->scalar();
+    }
+	
+	public function getUser(){
+    
+    return $this->hasOne(User::className() ,['id' => 'user_id']);
+    }
+	public function getArticleType(){
+    
+    return $this->hasOne(ArticleType::className() ,['id' => 'type_id']);
+    }
+	public function getArticleInfo(){
+		return $this->hasOne(ArticleInfo::className() ,['article_id' => 'id'])->orderBy('default desc');
+    }
+	public function getArticleDetail(){
+    
+    return $this->hasOne(ArticleDetail::className() ,['article_id' => 'id']);
+    }
+	//public function getStreet(){
+    
+  //  return $this->hasOne(Street::className() ,['street_id' => 'street_id']);
+   // }
+	public function getDistrict(){
+    
+    return $this->hasOne(District::className() ,['district_id' => 'district_id']);
+    }
+	public function getProvince(){
+		return $this->hasOne(Province::className() ,['province_id' => 'province_id']);
+    }
+    public static function getStatus(){
+		return [
+			0 => 'Ẩn',
+			1 => 'Hiển thị'
+		];
+	}
+}

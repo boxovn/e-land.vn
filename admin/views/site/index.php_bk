@@ -1,0 +1,199 @@
+<?php
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\widgets\Breadcrumbs;
+$this->title = 'Welcome';
+?>
+
+		<!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="row">
+
+				    <!-- /.col -->
+				    <div class="col-md-12">
+				        <!-- Widget: user widget style 1 -->
+				        <div class="box box-widget widget-user">
+				           
+							<div class="box-body">
+								 <form class="navbar-form navbar-block" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control" id="navbar-search-input" placeholder="Search">
+              </div>
+            </form>
+							</div>
+						</div>
+				        <!-- /.widget-user -->
+				         <div class="box">
+				            <div class="box-header">
+				                <h3 class="box-title">Danh sách</h3>
+							</div>
+				            <!-- /.box-header -->
+				            
+				            <div class="box-body table-responsive">
+				        	<?= GridView::widget([
+					        'dataProvider' => $dataProvider,
+					        'filterModel' => $searchModel,
+					        'columns' => [
+					            ['class' => 'yii\grid\SerialColumn'],
+
+								  [   		'attribute' => 'description',
+								  			'format' => 'raw',
+								    		'contentOptions' => ['class' => 'text-content','style' => 'width:40%'],
+				                            'headerOptions' => ['class' => 'text-header']
+				                   ],
+                 					[
+                            'class' => 'yii\grid\DataColumn',
+                            'attribute' => 'district_id',
+                             'value' => function($data){
+                              	  return isset($data->district)? $data->district->type . ' ' . $data->district->name:'';
+                              },
+                            'contentOptions' => ['class' => 'text-content'],
+                            'headerOptions' => ['class' => 'text-header'],
+                            'filter' => $districts,
+                   			 ],	
+                     [
+                            'class' => 'yii\grid\DataColumn',
+                            'attribute' => 'street',
+                            'label' => 'Đường',
+                            'contentOptions' => ['class' => 'text-content'],
+                            'headerOptions' => ['class' => 'text-header'],
+                            
+                        ],	
+                        /*
+						[
+											'attribute' => 'contract_date',
+											'class' => 'yii\grid\DataColumn',
+											'format' => 'raw',
+											'label' => 'Ngày ký',
+											'value' => function ($data) {
+												return date('d/m/Y',strtotime($data->contract_date));
+											},
+											'filter' =>[0 => 'Độc quyền bán', 1 =>'Độc quyền hoa hồng'],
+						],
+						[
+											'attribute' => 'contract_end_date',
+											'class' => 'yii\grid\DataColumn',
+											'format' => 'raw',
+											'label' => 'Ngày hết hợp đồng',
+											'value' => function ($data) {
+												
+												return  strtotime($data->contract_end_date)?date('d/m/Y',strtotime($data->contract_end_date)) :'Không thời hạn';
+											},
+											'filter' =>[0 => 'Độc quyền bán', 1 =>'Độc quyền hoa hồng'],
+						],
+				*/
+				 [
+									'attribute' => 'status',
+									'class' => 'yii\grid\DataColumn',
+									'format' => 'raw',
+									'value' => function ($data) {
+										$arr = [0 => '<span class="label label-warning">Đang bán</span>', 1 => '<span class="label label-danger">Đã bán</span>'];
+									return $arr[$data->status] ;
+									},
+									'filter' =>[0 => 'Đang bán', 1 =>'Đã bán'],
+									 'contentOptions' => ['class' => 'text-content'],
+                            			'headerOptions' => ['class' => 'text-header'],
+				],
+				 [
+									'attribute' => 'permission',
+									'class' => 'yii\grid\DataColumn',
+									'format' => 'raw',
+									'value' => function ($data) {
+										$arr = [0 => '<span class="label label-default">Mình tôi</span>', 1  => '<span class="label label-primary">Mọi người</span>'];
+									return $arr[$data->status] ;
+									},
+									'filter' =>[0 => 'Mình tôi', 1 =>'Mọi người'],
+									 'contentOptions' => ['class' => 'text-content'],
+                           			 'headerOptions' => ['class' => 'text-header'],
+				],
+									[
+									'attribute' => 'user_name',
+									'label' => 'Người đăng',
+									'class' => 'yii\grid\DataColumn',
+									'value' => function ($data) {
+												return $data->user->name;
+											},
+									 'contentOptions' => ['class' => 'text-content'],
+                           			 'headerOptions' => ['class' => 'text-header'],
+				],
+				[
+											'attribute' => 'created',
+											'class' => 'yii\grid\DataColumn',
+											'format' => 'raw',
+											'label' => 'Ngày tạo',
+											'value' => function ($data) {
+												return  strtotime($data->created)?date('d/m/Y',strtotime($data->created)) :'Không thời hạn';
+											},
+												 'contentOptions' => ['class' => 'text-content'],
+                           			 'headerOptions' => ['class' => 'text-header'],
+											
+						],
+						[	
+					'class' => 'yii\grid\ActionColumn',
+					
+					'template' =>'
+						<div class="btn-group">
+                  			{view}
+			                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+			                    <span class="caret"></span>
+			                    <span class="sr-only">Toggle Dropdown</span>
+			                  </button>
+			                  <ul class="dropdown-menu" role="menu">
+			                  	<li>{survey}</li>
+			                  	<li>{update}</li>
+			                    <li>{delete}</li>
+			                  </ul>
+                		</div>',
+					//'contentOptions' => ['style' => 'width: 8.7%'],
+					'header' => Html::a('Thêm', ['create','menu' => 'house'], ['class' => 'btn btn-primary btn-sm','style' => "width:100px" ]),
+					'buttons'=>[
+					'survey'=>function ($url, $model) {
+						return Html::a('<span class="glyphicon glyphicon-eye-open"></span> CV khảo sát', ['survey', 'id'=> $model->id,'menu' => 'house']);
+					},	
+				/*	'convert'=>function ($url, $model) {
+						
+						return Html::tag('div',Html::a('<span class="glyphicon glyphicon-file"></span> Đăng bài', ['convert', 'id'=> $model->id,'menu' => 'house'], ['class' => 'btn btn-success btn-xs custom_button','style' => "width:85px"]));
+					},*/
+					'view'=>function ($url, $model) {
+						
+						return Html::a('<span class="glyphicon glyphicon-eye-open"></span> Xem', ['view', 'id'=> $model->id,'menu' => 'house'], ['class' => 'btn btn-primary btn-sm']);
+					},
+					'update'=>function ($url, $model) {
+						
+						return  Html::a('<span class="glyphicon glyphicon-edit"></span> Sửa', ['update', 'id'=> $model->id,'menu' => 'house']);
+					},
+					'delete'=>function ($url, $model) {
+						//$t = 'index.php?r=social/delete&id='. $model->id;
+						return  Html::a('<span class="glyphicon glyphicon-trash"></span> Xóa', ['delete', 'id'=> $model->id,'menu' => 'house'], [
+						
+							'data' => [
+								'confirm' => 'Bạn có muốn xóa mục này?',
+								'method' => 'post',
+							],
+							]);
+						
+					},
+					
+								  
+				],
+				],
+        ],
+    ]); ?>
+     </div>
+				            <!-- /.box-body -->
+				        </div>
+				        <!-- /.box -->
+				    </div>
+				    <!-- /.col -->
+				    
+				</div>
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->

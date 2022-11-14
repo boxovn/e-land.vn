@@ -1,0 +1,584 @@
+2022-11-11 10:32:54 [127.0.0.1][-][ada0so0dgotfs3nerfgkng8a7a][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "channels/avatar/no-image.png". in /var/www/e-land.vn/vendor/yiisoft/yii2/base/Module.php:543
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php(104): yii\base\Module->runAction('channels/avatar...', Array)
+#1 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Không tìm thấy trang. in /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php:116
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#2 {main}
+2022-11-11 10:32:54 [127.0.0.1][-][ada0so0dgotfs3nerfgkng8a7a][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+    'province_id' => 79
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_HTTPS' => 'on'
+    'REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_STATUS' => '200'
+    'SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'e-land.vn'
+    'HTTP_HOST' => 'e-land.vn'
+    'HTTP_CONNECTION' => 'close'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at e-land.vn Port 443</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'e-land.vn'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'SERVER_ADMIN' => 'admin@e-land.vn'
+    'SCRIPT_FILENAME' => '/var/www/e-land.vn/frontend/web/index.php'
+    'REMOTE_PORT' => '56614'
+    'REDIRECT_URL' => '/index.php'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/channels/avatar/no-image.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1668137574.634
+    'REQUEST_TIME' => 1668137574
+]
+2022-11-11 10:32:54 [127.0.0.1][-][t3bcdisbjdlpqufq7qjt0macf6][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "channels/avatar/no-image.png". in /var/www/e-land.vn/vendor/yiisoft/yii2/base/Module.php:543
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php(104): yii\base\Module->runAction('channels/avatar...', Array)
+#1 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Không tìm thấy trang. in /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php:116
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#2 {main}
+2022-11-11 10:32:54 [127.0.0.1][-][t3bcdisbjdlpqufq7qjt0macf6][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+    'province_id' => 79
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_HTTPS' => 'on'
+    'REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_STATUS' => '200'
+    'SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'e-land.vn'
+    'HTTP_HOST' => 'e-land.vn'
+    'HTTP_CONNECTION' => 'close'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at e-land.vn Port 443</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'e-land.vn'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'SERVER_ADMIN' => 'admin@e-land.vn'
+    'SCRIPT_FILENAME' => '/var/www/e-land.vn/frontend/web/index.php'
+    'REMOTE_PORT' => '56630'
+    'REDIRECT_URL' => '/index.php'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/channels/avatar/no-image.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1668137574.664
+    'REQUEST_TIME' => 1668137574
+]
+2022-11-11 10:33:26 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "channels/avatar/no-image.png". in /var/www/e-land.vn/vendor/yiisoft/yii2/base/Module.php:543
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php(104): yii\base\Module->runAction('channels/avatar...', Array)
+#1 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Không tìm thấy trang. in /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php:116
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#2 {main}
+2022-11-11 10:33:26 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+    'province_id' => 79
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_HTTPS' => 'on'
+    'REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_STATUS' => '200'
+    'SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'e-land.vn'
+    'HTTP_HOST' => 'e-land.vn'
+    'HTTP_CONNECTION' => 'close'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at e-land.vn Port 443</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'e-land.vn'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'SERVER_ADMIN' => 'admin@e-land.vn'
+    'SCRIPT_FILENAME' => '/var/www/e-land.vn/frontend/web/index.php'
+    'REMOTE_PORT' => '56276'
+    'REDIRECT_URL' => '/index.php'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/channels/avatar/no-image.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1668137606.539
+    'REQUEST_TIME' => 1668137606
+]
+2022-11-11 10:33:26 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "channels/avatar/no-image.png". in /var/www/e-land.vn/vendor/yiisoft/yii2/base/Module.php:543
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php(104): yii\base\Module->runAction('channels/avatar...', Array)
+#1 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Không tìm thấy trang. in /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php:116
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#2 {main}
+2022-11-11 10:33:26 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+    'province_id' => 79
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_HTTPS' => 'on'
+    'REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_STATUS' => '200'
+    'SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'e-land.vn'
+    'HTTP_HOST' => 'e-land.vn'
+    'HTTP_CONNECTION' => 'close'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at e-land.vn Port 443</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'e-land.vn'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'SERVER_ADMIN' => 'admin@e-land.vn'
+    'SCRIPT_FILENAME' => '/var/www/e-land.vn/frontend/web/index.php'
+    'REMOTE_PORT' => '56282'
+    'REDIRECT_URL' => '/index.php'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/channels/avatar/no-image.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1668137606.56
+    'REQUEST_TIME' => 1668137606
+]
+2022-11-11 10:34:02 [127.0.0.1][-][vsn0ccjvn87ddi7t7enpniijt2][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "channels/avatar/no-image.png". in /var/www/e-land.vn/vendor/yiisoft/yii2/base/Module.php:543
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php(104): yii\base\Module->runAction('channels/avatar...', Array)
+#1 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Không tìm thấy trang. in /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php:116
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#2 {main}
+2022-11-11 10:34:02 [127.0.0.1][-][vsn0ccjvn87ddi7t7enpniijt2][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+    'province_id' => 79
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_HTTPS' => 'on'
+    'REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_STATUS' => '200'
+    'SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'e-land.vn'
+    'HTTP_HOST' => 'e-land.vn'
+    'HTTP_CONNECTION' => 'close'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at e-land.vn Port 443</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'e-land.vn'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'SERVER_ADMIN' => 'admin@e-land.vn'
+    'SCRIPT_FILENAME' => '/var/www/e-land.vn/frontend/web/index.php'
+    'REMOTE_PORT' => '48576'
+    'REDIRECT_URL' => '/index.php'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/channels/avatar/no-image.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1668137642.292
+    'REQUEST_TIME' => 1668137642
+]
+2022-11-11 10:34:02 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "channels/avatar/no-image.png". in /var/www/e-land.vn/vendor/yiisoft/yii2/base/Module.php:543
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php(104): yii\base\Module->runAction('channels/avatar...', Array)
+#1 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Không tìm thấy trang. in /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php:116
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#2 {main}
+2022-11-11 10:34:02 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+    'province_id' => 79
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_HTTPS' => 'on'
+    'REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_STATUS' => '200'
+    'SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'e-land.vn'
+    'HTTP_HOST' => 'e-land.vn'
+    'HTTP_CONNECTION' => 'close'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at e-land.vn Port 443</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'e-land.vn'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'SERVER_ADMIN' => 'admin@e-land.vn'
+    'SCRIPT_FILENAME' => '/var/www/e-land.vn/frontend/web/index.php'
+    'REMOTE_PORT' => '48590'
+    'REDIRECT_URL' => '/index.php'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/channels/avatar/no-image.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1668137642.342
+    'REQUEST_TIME' => 1668137642
+]
+2022-11-11 10:34:36 [127.0.0.1][-][qjg92o1nvsdainh1qgiqad8op2][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "channels/avatar/no-image.png". in /var/www/e-land.vn/vendor/yiisoft/yii2/base/Module.php:543
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php(104): yii\base\Module->runAction('channels/avatar...', Array)
+#1 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Không tìm thấy trang. in /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php:116
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#2 {main}
+2022-11-11 10:34:36 [127.0.0.1][-][qjg92o1nvsdainh1qgiqad8op2][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+    'province_id' => 79
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_HTTPS' => 'on'
+    'REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_STATUS' => '200'
+    'SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'e-land.vn'
+    'HTTP_HOST' => 'e-land.vn'
+    'HTTP_CONNECTION' => 'close'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at e-land.vn Port 443</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'e-land.vn'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'SERVER_ADMIN' => 'admin@e-land.vn'
+    'SCRIPT_FILENAME' => '/var/www/e-land.vn/frontend/web/index.php'
+    'REMOTE_PORT' => '59340'
+    'REDIRECT_URL' => '/index.php'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/channels/avatar/no-image.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1668137676.205
+    'REQUEST_TIME' => 1668137676
+]
+2022-11-11 10:34:36 [127.0.0.1][-][-][error][yii\web\HttpException:404] yii\base\InvalidRouteException: Unable to resolve the request "channels/avatar/no-image.png". in /var/www/e-land.vn/vendor/yiisoft/yii2/base/Module.php:543
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php(104): yii\base\Module->runAction('channels/avatar...', Array)
+#1 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#2 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#3 {main}
+
+Next yii\web\NotFoundHttpException: Không tìm thấy trang. in /var/www/e-land.vn/vendor/yiisoft/yii2/web/Application.php:116
+Stack trace:
+#0 /var/www/e-land.vn/vendor/yiisoft/yii2/base/Application.php(392): yii\web\Application->handleRequest(Object(yii\web\Request))
+#1 /var/www/e-land.vn/frontend/web/index.php(34): yii\base\Application->run()
+#2 {main}
+2022-11-11 10:34:36 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SESSION = [
+    '__flash' => []
+    'province_id' => 79
+]
+
+$_SERVER = [
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_REDIRECT_HTTPS' => 'on'
+    'REDIRECT_REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_REDIRECT_STATUS' => '200'
+    'REDIRECT_SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'REDIRECT_SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'REDIRECT_HTTPS' => 'on'
+    'REDIRECT_SSL_TLS_SNI' => 'e-land.vn'
+    'REDIRECT_STATUS' => '200'
+    'SCRIPT_URL' => '/channels/avatar/no-image.png'
+    'SCRIPT_URI' => 'https://e-land.vn/channels/avatar/no-image.png'
+    'HTTPS' => 'on'
+    'SSL_TLS_SNI' => 'e-land.vn'
+    'HTTP_HOST' => 'e-land.vn'
+    'HTTP_CONNECTION' => 'close'
+    'PATH' => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.29 (Ubuntu) Server at e-land.vn Port 443</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.29 (Ubuntu)'
+    'SERVER_NAME' => 'e-land.vn'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '443'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'REQUEST_SCHEME' => 'https'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/var/www/e-land.vn'
+    'SERVER_ADMIN' => 'admin@e-land.vn'
+    'SCRIPT_FILENAME' => '/var/www/e-land.vn/frontend/web/index.php'
+    'REMOTE_PORT' => '59354'
+    'REDIRECT_URL' => '/index.php'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.0'
+    'REQUEST_METHOD' => 'GET'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/channels/avatar/no-image.png'
+    'SCRIPT_NAME' => '/frontend/web/index.php'
+    'PHP_SELF' => '/frontend/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1668137676.623
+    'REQUEST_TIME' => 1668137676
+]

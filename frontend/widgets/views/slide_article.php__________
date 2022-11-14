@@ -1,0 +1,169 @@
+<?php
+use  yii\helpers\Url;
+use yii\helpers\Html;
+?>
+ 
+  <style type="text/css">
+   
+  	.slider-article{
+  		 width: 100%;
+        margin: 80px auto 0 auto;
+  	}
+    
+
+    .slick-slide {
+      margin: 0px 0px;
+    }
+
+    .slick-slide img {
+      width: 100%;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      color: black;
+    }
+
+
+    .slick-slide {
+      transition: all ease-in-out .3s;
+	
+    }
+    
+    .slick-active {
+    
+    }
+
+    .slick-current {
+     
+    }
+	.slick-prev, .slick-next{
+		z-index: 1;
+		cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 24px;
+    background-color:#fff;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3), 0 0 4px rgba(0, 0, 0, 0.2);
+    fill-opacity: 50%;
+    display: flex;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+	}
+	.slick-prev:hover, .slick-next:hover{
+			z-index: 1;
+	}
+  </style>
+<div class="list-box"> 
+			<div class="list-head">
+				<h2 class="list-title"><?=$title;?></h2>
+				
+			</div>
+			<section class="regular slider slider-article">
+			<?php foreach ($articles as $key => $value) { 
+					if( isset($value->province) &&  isset($value->district)){	
+					$image = $value->image;
+					
+					?>
+					<div>
+					<div class="column">
+						<a class="box-image" href="<?php echo Url::to(['/article/detail', 'province' => isset($value->province)?$value->province->slug:'', 'district' => isset($value->district)?$value->district->slug:'', 'category' => isset($value->articleType)?$value->articleType->slug:'', 'slug' => $value->slug],true);?>">
+								<img onerror="if (this.src != 'error.jpg') this.src = '<?php echo Url::to('@web/images/no-image210x118.png', true)?>';" width="210px" height="118px" class="image" alt="<?php echo $value->title; ?>"  src="<?php echo Url::to('@web/channels/article/210x118/' . $image, true)?>"/>
+								<div class="box-label">
+									<div style="width: calc(100% - 35px); float:left;">
+										<span>Giá: <?php echo $value->price_text; ?></span>
+										<span>Diện tích : <?php echo $value->area_text; ?></span>
+										
+									</div>
+								</div>
+							
+								<div class="box-time">
+									<i class="fa fa-clock-o" aria-hidden="true"></i>  <span><?php echo date('d/m/Y', strtotime($value->post_date)); ?></span>
+								</div>
+						</a>
+						<div class="box-description">
+							<h3><a title="<?php echo $value->title; ?>"  class="title" href="<?php echo Url::to(['/article/detail', 'province' => isset($value->province)?$value->province->slug:'', 'district' => isset($value->district)?$value->district->slug:'', 'category' => isset($value->articleType)?$value->articleType->slug:'', 'slug' => $value->slug],true);?>"><?php echo $value->title; ?></a></h3>
+							<div  class="province" >
+								<?php if(isset($value->district) && isset($value->province)){?>
+								<a title="<?php echo isset($value->district)?($value->district->type . ' ' . $value->district->name):'';?>" href="<?php echo Url::to(['article/district','district' => $value->district->slug,'province' => $value->province->slug],true);?>">
+									<?php echo isset($value->district)?($value->district->type . ' '. $value->district->name):'';?>
+								</a>
+								<a title="<?php echo isset($value->province)?$value->province->name:'';?>" href="<?php echo Url::to(['article/category','category' => $value->province->slug],true);?>">
+								, <?php echo isset($value->province)?$value->province->name:'';?>
+								</a>
+								<?php }?>
+							</div>
+						</div>
+					</div>
+					</div>
+		<?php } ?>
+		<?php } ?>
+		 </section>
+		  <div class="list-food">
+				<div class="view-more">
+					<a class="btn btn-sm btn-block" href="http://e-land.vn/"><i class="fa fa-caret-down" aria-hidden="true"></i> Xem thêm</a>
+				</div>
+			</div>
+</div>
+<script type="text/javascript">
+	
+	$( document ).ready(function() {
+	if($(window).width()< 1200){
+			sidebar_close();
+	}else{
+			sidebar_open();
+	}
+});
+$( window ).resize(function() {
+	if($(window).width()< 214*5){
+			sidebar_close();
+				
+		}else{
+			sidebar_open();
+		}
+		
+});
+function sidebar_open() {
+	var main = $(window).width();
+	var column =  ~~((main-240)/214);
+		var totalArticle = "<?php echo count($articles);?>";
+//console.log(totalArticle);
+		if(totalArticle > column){
+			   $(".regular").slick({
+				dots: false,
+				infinite: true,
+				useTransform: false,
+				slidesToShow: ~~((main-240)/214),
+				slidesToScroll: 1,
+				variableWidth: true
+			  });
+		}
+		
+}
+function sidebar_close() {
+	var main = $(window).width();
+var column =  ~~(main-240);
+		var totalArticle = "<?php echo count($articles);?>";
+		 //console.log(totalArticle);
+	if(totalArticle > column){
+		$(".regular").slick({
+			dots: false,
+			infinite: true,
+			useTransform: false,
+			slidesToShow: ~~(main/214),
+			slidesToScroll: 1,
+			variableWidth: true
+		  });
+	}
+	
+}
+</script> 
+<?php  //echo $this->registerJsFile('@web/js/offer_article.js', ['position' => \yii\web\View::POS_END]);?>     
+ 

@@ -1,0 +1,102 @@
+/* 
+    Created on : 8.2.2015, 20:03:51
+    Author     : valiasek
+*/
+
+div#ctsElsWrapper{
+    position: fixed;
+    top: 20vh;
+    right: 2em;
+    display: inline-block;
+    z-index: 1500;
+    vertical-align: top;
+    width: 80px;
+    max-width: 80px;
+    height: auto;
+}
+
+#ctsElsWrapper > .cts-arrow{
+    display: block;
+    position: relative;
+    width: 80px;
+    height: 30px;
+}
+
+#ctsElsWrapper > .cts-arrow.cts-up{
+    background: url('img/arrow-gray-up.png') no-repeat scroll center center transparent;
+}
+
+#ctsElsWrapper > .cts-arrow.cts-down{
+    background: url('img/arrow-gray-down.png') no-repeat scroll center center transparent;
+}
+
+#ctsElsWrapper > .cts-arrow.cts-up.cts-ar-orange{
+    background: url('img/arrow-orange-up.png') no-repeat scroll center center transparent;
+}
+
+#ctsElsWrapper > .cts-arrow.cts-down.cts-ar-orange{
+    background: url('img/arrow-orange-down.png') no-repeat scroll center center transparent;
+}
+
+#ctsElsWrapper > .cts-arrow.cts-up.cts-ar-white{
+    background: url('img/arrow-white-up.png') no-repeat scroll center center transparent;
+}
+
+#ctsElsWrapper > .cts-arrow.cts-down.cts-ar-white{
+    background: url('img/arrow-white-down.png') no-repeat scroll center center transparent;
+}
+
+#ctsElsWrapper > .cts-arrow.cts-up.cts-ar-blue{
+    background: url('img/arrow-blue-up.png') no-repeat scroll center center transparent;
+}
+
+#ctsElsWrapper > .cts-arrow.cts-down.cts-ar-blue{
+    background: url('img/arrow-blue-down.png') no-repeat scroll center center transparent;
+}
+
+#ctsElsWrapper > p.cts-text{
+    text-align: center;
+    margin: 1.5em 0em;
+    font-weight: normal;
+    color: #b1b1b1;
+    display: block;
+    width: 80px;
+    max-width: 80px;
+}
+
+#ctsElsWrapper > a.cts-dot{
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border: none;
+    outline: none;
+    margin: 1em 0em;
+    left: 30px;
+    border-radius: 50%;
+    background-color: #b1b1b1;
+    transition: background-color 250ms ease-in-out 0s;
+}
+
+#ctsElsWrapper > a.cts-dot.cts-dot-blue{
+    background-color: #003c73;
+    transition: background-color 250ms ease-in-out 0s;
+}
+
+#ctsElsWrapper > a.cts-dot.cts-dot-white{
+    background-color: #fff;
+    transition: background-color 250ms ease-in-out 0s;
+}
+
+#ctsElsWrapper > a.cts-dot.cts-dot-orange{
+    background-color: #dc642d;
+    transition: background-color 250ms ease-in-out 0s;
+}
+
+#ctsElsWrapper > a.cts-dot:first-child{
+    margin-top: 1.7em;
+}
+
+#ctsElsWrapper > img.cts-preload{
+    display: none;
+}
